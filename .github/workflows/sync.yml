@@ -311,8 +311,16 @@ jobs:
               # rule itself is NOT kept (removed 2026-10-18, SKIP_RULES).
               _gh_path = os.path.join(dest, "GitHub.list")
               if os.path.exists(_gh_path):
-                  _gits_url = ("https://raw.githubusercontent.com/QuixoticHeart/rule-set"
-                               "/ruleset/surge/gits.list")
+                  # 2026-11-07: fetch each client's own gits (QuixoticHeart
+                  # ships one per client); Egern keeps surge/gits.list
+                  # because its merge target is a Surge-format .list
+                  # (egern/gits.yaml is YAML, not appendable).
+                  if client == "Egern":
+                      _gits_url = ("https://raw.githubusercontent.com/QuixoticHeart/rule-set"
+                                   "/ruleset/surge/gits.list")
+                  else:
+                      _gits_url = ("https://raw.githubusercontent.com/QuixoticHeart/rule-set"
+                                   f"/ruleset/{cfg['qdir']}/gits.list")
                   _gits_data = fetch(_gits_url)
                   if _gits_data:
                       _GH_RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
@@ -343,22 +351,10 @@ jobs:
                           _added.append(_l)
                           _gh_domains.add(_d)
                       if _added and client == "QuantumultX":
-                          # QX uses HOST* types (not DOMAIN*) plus a policy
-                          # field; convert the Surge-format gits lines.
-                          # 2026-11-07: the merge appended raw DOMAIN lines
-                          # into the HOST file (user caught it).
-                          _QX_MAP = {"DOMAIN": "HOST", "DOMAIN-SUFFIX": "HOST-SUFFIX",
-                                     "DOMAIN-KEYWORD": "HOST-KEYWORD",
-                                     "DOMAIN-WILDCARD": "HOST-WILDCARD"}
-                          _conv = []
-                          for _l in _added:
-                              _p = [x.strip() for x in _l.split(",")]
-                              if _p and _p[0].upper() in _QX_MAP:
-                                  _p[0] = _QX_MAP[_p[0].upper()]
-                              if len(_p) == 2:
-                                  _p.append("GitHub")
-                              _conv.append(",".join(_p))
-                          _added = _conv
+                          # QX gits lines carry a ,gits policy tag; retag
+                          # to ,GitHub to match the GitHub.list file.
+                          _added = [(_l.rstrip()[:-5] + ",GitHub") if _l.rstrip().endswith(",gits") else _l
+                                    for _l in _added]
                       if _added:
                           with open(_gh_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
