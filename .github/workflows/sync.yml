@@ -23,13 +23,11 @@ jobs:
         run: |
           python3 << 'PYEOF'
           import json, os, re, shutil, urllib.request
-          from datetime import datetime, timezone
 
           NEW = "/tmp/new"
           os.makedirs(NEW, exist_ok=True)
 
-          import os as _os
-          _GH_TOKEN = _os.environ.get("GH_TOKEN", "")
+          _GH_TOKEN = os.environ.get("GH_TOKEN", "")
 
           def fetch(url, retries=3, auth=False, ua=None):
               for i in range(retries):
@@ -175,6 +173,20 @@ jobs:
                        "dropped": len(dropped), "skipped": skipped}
               return "\n".join(out) + "\n", stats
 
+          _RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
+                         "IP-CIDR", "IP-CIDR6", "HOST", "HOST-SUFFIX",
+                         "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
+
+          def rule_domain(line):
+              """Extract the domain/value from a rule line (for merge dedup)."""
+              s = line.strip()
+              if not s or s.startswith("#"):
+                  return None
+              parts = [p.strip() for p in s.split(",")]
+              if len(parts) >= 2 and parts[0].upper() in _RULE_TYPES:
+                  return parts[1].lstrip(".").lower()
+              return parts[0].lstrip(".").lower()
+
           def sort_rule_file(path, order_map):
               """Sort a .list rule file by rule type (specific rules first)
               and drop blank lines. Used by the 2b/2c merges."""
@@ -193,13 +205,8 @@ jobs:
               "disney": "Disney", "dmca": "DMCA", "douyin": "DouYin",
               "games-cn": "Games-CN",
               "games": "Games", "gfw": "GFW", "google": "Google",
-              "httpdns": "HttpDNS",
-
-
-              "netflix": "Netflix",
-
+              "httpdns": "HttpDNS", "netflix": "Netflix",
               "private": "Private", "proxy": "Proxy",
-
               "speedtest": "Speedtest", "spotify": "Spotify", 
               "tiktok": "TikTok", "tld-proxy": "TLD-Proxy", "twitch": "Twitch",
               "youtube": "YouTube",
@@ -212,8 +219,6 @@ jobs:
           EXTRA = ["HuYa", "Discord", "Instagram", "Telegram", "Twitter",
                    "NetEaseMusic", "GitHub", "Reddit", "Pixiv",
                    "Google", "ByteDance"]
-          EXTRA_NAMES = set(EXTRA)
-
           CLIENTS = {
               "Loon": {"qdir": "loon", "ext": ".list", "bmdir": "rule/Loon"},
               "Egern": {"qdir": "egern", "ext": ".yaml", "bmdir": "rule/Surge"},
@@ -266,7 +271,6 @@ jobs:
                       print(f"  FAIL {url}")
                       continue
                   fn = _norm + cfg["ext"]
-                  # Egern extra rules use .list (Surge-compatible)
                   with open(os.path.join(dest, fn), "wb") as f:
                       f.write(strip_leading_hash_comments(data))
                   ok += 1
@@ -295,26 +299,15 @@ jobs:
                   if _dy_data:
                       # Compare by domain, not whole line, so same-domain lines
                       # with a different policy suffix are not counted as new rules.
-                      _RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
-                                     "IP-CIDR", "IP-CIDR6", "HOST", "HOST-SUFFIX",
-                                     "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
-                      def _rule_domain(line):
-                          s = line.strip()
-                          if not s or s.startswith("#"):
-                              return None
-                          parts = [p.strip() for p in s.split(",")]
-                          if len(parts) >= 2 and parts[0].upper() in _RULE_TYPES:
-                              return parts[1].lstrip(".").lower()
-                          return parts[0].lstrip(".").lower()
                       _bd_domains = set()
                       for _bl in open(_bd_path, encoding="utf-8", errors="ignore").read().splitlines():
-                          _d = _rule_domain(_bl)
+                          _d = rule_domain(_bl)
                           if _d:
                               _bd_domains.add(_d)
                       _added = []
                       for _l in _dy_data.decode("utf-8", errors="ignore").splitlines():
                           _l = _l.strip()
-                          _d = _rule_domain(_l)
+                          _d = rule_domain(_l)
                           if _d and _d not in _bd_domains:
                               _added.append(_l)
                               _bd_domains.add(_d)
@@ -362,27 +355,16 @@ jobs:
                                    f"/ruleset/{cfg['qdir']}/gits.list")
                   _gits_data = fetch(_gits_url)
                   if _gits_data:
-                      _GH_RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
-                                        "IP-CIDR", "IP-CIDR6", "HOST", "HOST-SUFFIX",
-                                        "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
-                      def _gh_domain(line):
-                          s = line.strip()
-                          if not s or s.startswith("#"):
-                              return None
-                          parts = [p.strip() for p in s.split(",")]
-                          if len(parts) >= 2 and parts[0].upper() in _GH_RULE_TYPES:
-                              return parts[1].lstrip(".").lower()
-                          return parts[0].lstrip(".").lower()
                       _gh_domains = set()
                       for _gl in open(_gh_path, encoding="utf-8", errors="ignore").read().splitlines():
-                          _d = _gh_domain(_gl)
+                          _d = rule_domain(_gl)
                           if _d:
                               _gh_domains.add(_d)
                       _EXCLUDE = ("gitlab", "gitee", "gitbook", "gitter")
                       _added = []
                       for _l in _gits_data.decode("utf-8", errors="ignore").splitlines():
                           _l = _l.strip()
-                          _d = _gh_domain(_l)
+                          _d = rule_domain(_l)
                           if not _d or _d in _gh_domains:
                               continue
                           if any(_x in _d for _x in _EXCLUDE):
