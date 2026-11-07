@@ -456,7 +456,7 @@ jobs:
 
 
 
-              if client in ("Surge", "Egern", "Loon", "QuantumultX") and "ChinaASN" in _repo_stems:
+              if client in ("Surge", "Egern", "Loon", "QuantumultX", "Clash"):
                   _asn_url = MISSUO_ASN_URL
                   _asn_data = fetch(_asn_url)
                   if _asn_data and not valid_rule_content(_asn_data, ".list"):
