@@ -195,9 +195,11 @@ jobs:
                         "socialmedia", "socialmedia-cn", "talkatone", "vk", "whatsapp"}
 
           CLIENTS = {
+              "Loon": {"qdir": "loon", "ext": ".list", "bmdir": "rule/Loon"},
               "Egern": {"qdir": "egern", "ext": ".yaml", "bmdir": "rule/Surge"},
               "Surge": {"qdir": "surge", "ext": ".list", "bmdir": "rule/Surge"},
               "Clash": {"qdir": "meta", "ext": ".list", "bmdir": "rule/Clash"},
+              "QuantumultX": {"qdir": "quantumultx", "ext": ".list", "bmdir": "rule/QuantumultX"},
           }
 
           for client, cfg in CLIENTS.items():
@@ -329,29 +331,31 @@ jobs:
 
               # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
               # Surge-format IP-ASN list, synced as ChinaASN.list into
-              # Surge and Egern only. Egern converts it to native .yaml in
-              # step 2e below. On fetch failure, keep the repo's old file
-              # (Egern prefers the old .yaml).
+              # Surge, Egern, Loon and QuantumultX. Egern converts it to
+              # native .yaml in step 2e below. On fetch failure, keep the
+              # repo's old file (Egern prefers the old .yaml).
               # 2026-11-07: every IP-ASN line gets ,no-resolve (missuo
               # carries none; matches the Egern YAML no_resolve and
-              # bm7's ChinaASN).
-              if client in ("Surge", "Egern"):
+              # bm7's ChinaASN). 2026-11-07: QuantumultX does NOT get
+              # no-resolve (QX does not support it).
+              if client in ("Surge", "Egern", "Loon", "QuantumultX"):
                   _asn_url = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
                   _asn_data = fetch(_asn_url)
                   if _asn_data:
-                      _asn_text = _asn_data.decode("utf-8", errors="ignore")
-                      _nr_lines = []
-                      for _ln in _asn_text.splitlines():
-                          _s = _ln.strip()
-                          if _s.startswith("IP-ASN,") and ",no-resolve" not in _s:
-                              if " //" in _s:
-                                  _h, _t = _s.split(" //", 1)
-                                  _nr_lines.append(_h + ",no-resolve //" + _t)
+                      if client != "QuantumultX":
+                          _asn_text = _asn_data.decode("utf-8", errors="ignore")
+                          _nr_lines = []
+                          for _ln in _asn_text.splitlines():
+                              _s = _ln.strip()
+                              if _s.startswith("IP-ASN,") and ",no-resolve" not in _s:
+                                  if " //" in _s:
+                                      _h, _t = _s.split(" //", 1)
+                                      _nr_lines.append(_h + ",no-resolve //" + _t)
+                                  else:
+                                      _nr_lines.append(_s + ",no-resolve")
                               else:
-                                  _nr_lines.append(_s + ",no-resolve")
-                          else:
-                              _nr_lines.append(_ln)
-                      _asn_data = ("\n".join(_nr_lines) + "\n").encode("utf-8")
+                                  _nr_lines.append(_ln)
+                          _asn_data = ("\n".join(_nr_lines) + "\n").encode("utf-8")
                       with open(os.path.join(dest, "ChinaASN.list"), "wb") as _f:
                           _f.write(_asn_data)
                       ok += 1
@@ -440,11 +444,13 @@ jobs:
           # README and LICENSE (2026-11-07 restructure).
           git fetch origin rules
           git checkout -B rules origin/rules
-          rm -rf Egern Surge Clash
+          rm -rf Loon Egern Surge Clash QuantumultX
+          cp -r /tmp/new/Loon Loon
           cp -r /tmp/new/Egern Egern
           cp -r /tmp/new/Surge Surge
           cp -r /tmp/new/Clash Clash
-          echo "published: $(ls Egern | wc -l) egern, $(ls Surge | wc -l) surge, $(ls Clash | wc -l) clash"
+          cp -r /tmp/new/QuantumultX QuantumultX
+          echo "published: $(ls Loon | wc -l) loon, $(ls Egern | wc -l) egern, $(ls Surge | wc -l) surge, $(ls Clash | wc -l) clash, $(ls QuantumultX | wc -l) qx"
 
       - name: Commit and push if changed
         run: |
