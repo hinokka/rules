@@ -355,25 +355,24 @@ jobs:
               # 2026-11-07: every IP-ASN line gets ,no-resolve (missuo
               # carries none; matches the Egern YAML no_resolve and
               # bm7's ChinaASN). 2026-11-07: QuantumultX does NOT get
-              # no-resolve (QX does not support it).
+              # no-resolve (QX does not support it). 2026-11-07: strip
+              # all missuo // comments (header lines + trailing org names).
               if client in ("Surge", "Egern", "Loon", "QuantumultX"):
                   _asn_url = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
                   _asn_data = fetch(_asn_url)
                   if _asn_data:
-                      if client != "QuantumultX":
-                          _asn_text = _asn_data.decode("utf-8", errors="ignore")
-                          _nr_lines = []
-                          for _ln in _asn_text.splitlines():
-                              _s = _ln.strip()
-                              if _s.startswith("IP-ASN,") and ",no-resolve" not in _s:
-                                  if " //" in _s:
-                                      _h, _t = _s.split(" //", 1)
-                                      _nr_lines.append(_h + ",no-resolve //" + _t)
-                                  else:
-                                      _nr_lines.append(_s + ",no-resolve")
-                              else:
-                                  _nr_lines.append(_ln)
-                          _asn_data = ("\n".join(_nr_lines) + "\n").encode("utf-8")
+                      _asn_text = _asn_data.decode("utf-8", errors="ignore")
+                      _out_lines = []
+                      for _ln in _asn_text.splitlines():
+                          _s = _ln.strip()
+                          if not _s or _s.startswith("//"):
+                              continue
+                          if " //" in _s:
+                              _s = _s.split(" //", 1)[0].rstrip()
+                          if _s.startswith("IP-ASN,") and client != "QuantumultX" and ",no-resolve" not in _s:
+                              _s = _s + ",no-resolve"
+                          _out_lines.append(_s)
+                      _asn_data = ("\n".join(_out_lines) + "\n").encode("utf-8")
                       with open(os.path.join(dest, "ChinaASN.list"), "wb") as _f:
                           _f.write(_asn_data)
                       ok += 1
