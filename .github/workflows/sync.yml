@@ -217,8 +217,8 @@ jobs:
                       continue  # Google rule comes from blackmatrix7
                   if stem.lower() in SKIP_RULES:
                       continue  # 2026-11-07: removed at the user's request
-                  if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules"):
-                      continue  # 2026-10-31: Clash CN/CNCIDR/Proxy/AdRules served as mrs only, classical .list no longer synced
+                  if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules", "tld-proxy"):
+                      continue  # 2026-10-31: Clash CN/CNCIDR/Proxy/AdRules served as mrs only, classical .list no longer synced; 2026-11-07: TLD-Proxy also moved to mrs
                   fn = RENAME.get(stem.lower(), stem) + cfg["ext"]
                   # Egern extra rules use .list (Surge-compatible)
                   with open(os.path.join(dest, fn), "wb") as f:
@@ -390,7 +390,7 @@ jobs:
                       print("  [Egern YAML] %s.yaml: %s (dropped PROCESS-NAME: %d, skipped: %d)" % (
                           _name, _stats["counts"], _stats["dropped"], len(_stats["skipped"])))
 
-              # 2f. Clash MRS for CN / CNCIDR / Proxy / AdRules (2026-10-31, memory fix)
+              # 2f. Clash MRS for CN / CNCIDR / Proxy / AdRules / TLD-Proxy (2026-10-31, memory fix; TLD-Proxy added 2026-11-07)
               # QuixoticHeart already splits meta into domain/ipcidr/mrs;
               # only these large rules switch to mrs; all other Clash
               # rules stay classical .list.
@@ -409,6 +409,8 @@ jobs:
                       # classical KEYWORD/REGEX/WILDCARD rows.
                       "AdRules.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/adrules.mrs",
                       "AdRules-IP.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/adrules.mrs",
+                      # TLD-Proxy: single domain-only mrs (no IP rows, no ipcidr split).
+                      "TLD-Proxy.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/tld-proxy.mrs",
                   }
                   for _fn, _url in _mrs_map.items():
                       _data = fetch(_url)
