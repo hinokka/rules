@@ -1,3 +1,5 @@
+HOST,lf3-static.bytednsdoc.com,DouYin
+HOST,v5-dy-o-abtest.zjcdn.com,DouYin
 HOST-SUFFIX,2333333333333.com,ByteDance
 HOST-SUFFIX,365yg.com,ByteDance
 HOST-SUFFIX,activity-zhendingtech.com,ByteDance
@@ -368,9 +370,6 @@ HOST-SUFFIX,ixiguavideo.com,ByteDance
 HOST-SUFFIX,pstatp.com,ByteDance
 HOST-SUFFIX,toutiao.com,ByteDance
 HOST-SUFFIX,zijieapi.com,ByteDance
-USER-AGENT,TikTok*,ByteDance
-IP-CIDR,114.246.10.65/32,ByteDance
-
-HOST,lf3-static.bytednsdoc.com,DouYin
-HOST,v5-dy-o-abtest.zjcdn.com,DouYin
 HOST-SUFFIX,snssdk.com,DouYin
+IP-CIDR,114.246.10.65/32,ByteDance
+USER-AGENT,TikTok*,ByteDance

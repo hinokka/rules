@@ -1,3 +1,5 @@
+DOMAIN,lf3-static.bytednsdoc.com
+DOMAIN,v5-dy-o-abtest.zjcdn.com
 DOMAIN-SUFFIX,2333333333333.com
 DOMAIN-SUFFIX,365yg.com
 DOMAIN-SUFFIX,activity-zhendingtech.com
@@ -368,9 +370,6 @@ DOMAIN-SUFFIX,ixiguavideo.com
 DOMAIN-SUFFIX,pstatp.com
 DOMAIN-SUFFIX,toutiao.com
 DOMAIN-SUFFIX,zijieapi.com
+DOMAIN-SUFFIX,snssdk.com
 IP-CIDR,114.246.10.65/32,no-resolve
 PROCESS-NAME,com.zhiliaoapp.musically
-
-DOMAIN,lf3-static.bytednsdoc.com
-DOMAIN,v5-dy-o-abtest.zjcdn.com
-DOMAIN-SUFFIX,snssdk.com
