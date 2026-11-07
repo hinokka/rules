@@ -15,7 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # full history so the rules branch can be checked out for publishing
+          # Optimization 2: work on the rules branch itself, so the old rule
+          # files are present locally and the 2d/2f "keep old version on
+          # fetch failure" fallback actually works (on master they don't
+          # exist, so the fallback could never trigger). The workflow file
+          # itself stays on master; only the working directory switches.
+          ref: rules
+          fetch-depth: 0
 
       - name: Sync rules
         env:
@@ -23,6 +29,12 @@ jobs:
         run: |
           python3 << 'PYEOF'
           import json, os, re, shutil, urllib.request
+          from concurrent.futures import ThreadPoolExecutor
+
+          # Optimization 4: upstream base URLs in one place.
+          QHEART_RAW = "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset"
+          BM7_RAW = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master"
+          MISSUO_ASN_URL = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
 
           NEW = "/tmp/new"
           os.makedirs(NEW, exist_ok=True)
@@ -187,6 +199,38 @@ jobs:
                   return parts[1].lstrip(".").lower()
               return parts[0].lstrip(".").lower()
 
+          def valid_rule_content(data, ext):
+              """Optimization 3: reject HTML error pages / empty downloads
+              before they become rule files. Returns True if the content
+              looks like a real rule file of the given extension."""
+              if not data or len(data) < 10:
+                  return False
+              if ext == ".mrs":
+                  # Binary .mrs: reject if it looks like text/HTML.
+                  head = data[:200].lstrip()
+                  if head.startswith(b"<") or b"<html" in data[:1000].lower():
+                      return False
+                  return len(data) > 100
+              try:
+                  text = data.decode("utf-8", errors="strict")
+              except Exception:
+                  text = data.decode("utf-8", errors="ignore")
+              low = text[:2000].lower()
+              if "<html" in low or "<!doctype" in low:
+                  return False
+              for line in text.splitlines():
+                  s = line.strip()
+                  if not s or s.startswith("#") or s.startswith("//"):
+                      continue
+                  if ext == ".yaml":
+                      if s.endswith(":") or s.startswith("- "):
+                          return True
+                  else:
+                      parts = s.split(",", 1)
+                      if len(parts) >= 2 and parts[0].strip().upper() in _RULE_TYPES:
+                          return True
+              return False
+
           def sort_rule_file(path, order_map):
               """Sort a .list rule file by rule type (specific rules first)
               and drop blank lines. Used by the 2b/2c merges."""
@@ -252,11 +296,11 @@ jobs:
               # 1. QuixoticHeart ruleset
               urls = gh_list("QuixoticHeart/rule-set", cfg["qdir"], "ruleset", cfg["ext"])
               print(f"[{client}] QuixoticHeart: {len(urls)} files")
+              # Optimization 1: filter first (cheap), then fetch the rest in
+              # parallel instead of one by one. The filename is already in
+              # the URL, so skipped rules are never downloaded at all.
+              _tasks = []
               for url in urls:
-                  # 2026-11-07: check skip BEFORE downloading. The old code
-                  # fetched the file first and threw it away; the filename
-                  # is already in the URL, so skipped rules are never
-                  # downloaded at all.
                   fn = os.path.basename(url)
                   stem = fn[:-len(cfg["ext"])]
                   if stem.lower() == "google":
@@ -266,36 +310,49 @@ jobs:
                   _norm = RENAME.get(stem.lower(), stem)
                   if _norm not in _repo_stems:
                       continue  # not in the repo: new upstream rule, user does not want it
-                  data = fetch(url)
-                  if not data:
-                      print(f"  FAIL {url}")
+                  _tasks.append((url, _norm + cfg["ext"]))
+              with ThreadPoolExecutor(max_workers=16) as _ex:
+                  _results = list(_ex.map(lambda t: (t[1], fetch(t[0])), _tasks))
+              for _fn, _data in _results:
+                  if not _data:
+                      print(f"  FAIL {_fn}")
                       continue
-                  fn = _norm + cfg["ext"]
-                  with open(os.path.join(dest, fn), "wb") as f:
-                      f.write(strip_leading_hash_comments(data))
+                  if not valid_rule_content(_data, cfg["ext"]):
+                      print(f"  INVALID {_fn}, skipped")
+                      continue
+                  with open(os.path.join(dest, _fn), "wb") as f:
+                      f.write(strip_leading_hash_comments(_data))
                   ok += 1
 
-              # 2. blackmatrix7 extras
+              # 2. blackmatrix7 extras (Optimization 1: fetch in parallel)
+              _extra_tasks = []
               for name in EXTRA:
                   if name not in _repo_stems:
                       continue  # not in the repo, do not re-add
                   ext = ".list"  # extras are always .list (Surge-compatible for Egern)
-                  url = (f"https://raw.githubusercontent.com/blackmatrix7/ios_rule_script"
-                         f"/master/{cfg['bmdir']}/{name}/{name}{ext}")
-                  data = fetch(url)
-                  if data:
-                      with open(os.path.join(dest, f"{name}{ext}"), "wb") as f:
-                          f.write(strip_leading_hash_comments(data))
-                      ok += 1
-                  else:
+                  url = f"{BM7_RAW}/{cfg['bmdir']}/{name}/{name}{ext}"
+                  _extra_tasks.append((name, url))
+              with ThreadPoolExecutor(max_workers=8) as _ex:
+                  _extra_results = list(_ex.map(lambda t: (t[0], fetch(t[1])), _extra_tasks))
+              for name, data in _extra_results:
+                  if not data:
                       print(f"  FAIL(extra) {name}")
+                      continue
+                  if not valid_rule_content(data, ".list"):
+                      print(f"  INVALID(extra) {name}, skipped")
+                      continue
+                  with open(os.path.join(dest, f"{name}.list"), "wb") as f:
+                      f.write(strip_leading_hash_comments(data))
+                  ok += 1
               # 2b. ByteDance: merge DouYin-unique rules (blackmatrix7's ByteDance.list
               # misses snssdk.com etc.; DouYin.list has 3 rules not in ByteDance)
               _bd_path = os.path.join(dest, "ByteDance.list")
               if os.path.exists(_bd_path):
-                  _dy_url = (f"https://raw.githubusercontent.com/blackmatrix7/ios_rule_script"
-                             f"/master/{cfg['bmdir']}/DouYin/DouYin.list")
+                  _dy_url = f"{BM7_RAW}/{cfg['bmdir']}/DouYin/DouYin.list"
                   _dy_data = fetch(_dy_url)
+                  if _dy_data and not valid_rule_content(_dy_data, ".list"):
+                      print("  [ByteDance] DouYin.list invalid, merge skipped")
+                      _dy_data = None
                   if _dy_data:
                       # Compare by domain, not whole line, so same-domain lines
                       # with a different policy suffix are not counted as new rules.
@@ -348,12 +405,13 @@ jobs:
                   # because its merge target is a Surge-format .list
                   # (egern/gits.yaml is YAML, not appendable).
                   if client == "Egern":
-                      _gits_url = ("https://raw.githubusercontent.com/QuixoticHeart/rule-set"
-                                   "/ruleset/surge/gits.list")
+                      _gits_url = f"{QHEART_RAW}/surge/gits.list"
                   else:
-                      _gits_url = ("https://raw.githubusercontent.com/QuixoticHeart/rule-set"
-                                   f"/ruleset/{cfg['qdir']}/gits.list")
+                      _gits_url = f"{QHEART_RAW}/{cfg['qdir']}/gits.list"
                   _gits_data = fetch(_gits_url)
+                  if _gits_data and not valid_rule_content(_gits_data, ".list"):
+                      print("  [GitHub] gits.list invalid, merge skipped")
+                      _gits_data = None
                   if _gits_data:
                       _gh_domains = set()
                       for _gl in open(_gh_path, encoding="utf-8", errors="ignore").read().splitlines():
@@ -405,8 +463,11 @@ jobs:
               # no-resolve (QX does not support it). 2026-11-07: strip
               # all missuo // comments (header lines + trailing org names).
               if client in ("Surge", "Egern", "Loon", "QuantumultX") and "ChinaASN" in _repo_stems:
-                  _asn_url = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
+                  _asn_url = MISSUO_ASN_URL
                   _asn_data = fetch(_asn_url)
+                  if _asn_data and not valid_rule_content(_asn_data, ".list"):
+                      print("  [ChinaASN] invalid, kept old version")
+                      _asn_data = None
                   if _asn_data:
                       _asn_text = _asn_data.decode("utf-8", errors="ignore")
                       _out_lines = []
@@ -468,22 +529,25 @@ jobs:
               # not cncidr.mrs. On fetch failure, keep the repo's old .mrs.
               if client == "Clash":
                   _mrs_map = {
-                      "CN.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/cn.mrs",
-                      "CNCIDR.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/cn.mrs",
+                      "CN.mrs": f"{QHEART_RAW}/meta/domain/cn.mrs",
+                      "CNCIDR.mrs": f"{QHEART_RAW}/meta/ipcidr/cn.mrs",
                       # Proxy: upstream has two proxy.mrs files (domain/ and ipcidr/);
                       # the repo is flat, so the ipcidr one is renamed Proxy-IP.mrs.
-                      "Proxy.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/proxy.mrs",
-                      "Proxy-IP.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/proxy.mrs",
+                      "Proxy.mrs": f"{QHEART_RAW}/meta/domain/proxy.mrs",
+                      "Proxy-IP.mrs": f"{QHEART_RAW}/meta/ipcidr/proxy.mrs",
                       # AdRules: same split as Proxy; the ipcidr one is
                       # renamed AdRules-IP.mrs. Domain mrs drops the
                       # classical KEYWORD/REGEX/WILDCARD rows.
-                      "AdRules.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/adrules.mrs",
-                      "AdRules-IP.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/adrules.mrs",
+                      "AdRules.mrs": f"{QHEART_RAW}/meta/domain/adrules.mrs",
+                      "AdRules-IP.mrs": f"{QHEART_RAW}/meta/ipcidr/adrules.mrs",
                       # TLD-Proxy: single domain-only mrs (no IP rows, no ipcidr split).
-                      "TLD-Proxy.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/tld-proxy.mrs",
+                      "TLD-Proxy.mrs": f"{QHEART_RAW}/meta/domain/tld-proxy.mrs",
                   }
                   for _fn, _url in _mrs_map.items():
                       _data = fetch(_url)
+                      if _data and not valid_rule_content(_data, ".mrs"):
+                          print(f"  [Clash MRS] {_fn} invalid, kept old version")
+                          _data = None
                       if _data:
                           with open(os.path.join(dest, _fn), "wb") as _f:
                               _f.write(_data)
@@ -504,10 +568,8 @@ jobs:
       - name: Atomic publish to rules branch
         run: |
           set -e
-          # Rules live on the rules branch; master holds only the workflow,
-          # README and LICENSE (2026-11-07 restructure).
-          git fetch origin rules
-          git checkout -B rules origin/rules
+          # Already on the rules branch (checkout used ref: rules); master
+          # holds only the workflow, README and LICENSE.
           rm -rf Loon Egern Surge Clash QuantumultX
           cp -r /tmp/new/Loon Loon
           cp -r /tmp/new/Egern Egern
