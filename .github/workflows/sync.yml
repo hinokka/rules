@@ -274,6 +274,54 @@ jobs:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [ByteDance] merged {len(_added)} DouYin-unique rules")
 
+              # 2c. GitHub: merge GitHub-related domains from QuixoticHeart gits
+              # (2026-11-07) blackmatrix7's GitHub.list (31 rules) is missing
+              # GitHub's backend storage domains (github-production-*.s3,
+              # productionresultssa*.blob, copilot attachments, arkoselabs)
+              # and a few GitHub services (gh.io, ghe.com, github.ai,
+              # github.career, githubsupport.com, octocaptcha.com).
+              # QuixoticHeart's gits rule has them (76 rules, a superset of
+              # GitHub). Merge the GitHub-related ones (skip GitLab/Gitee/
+              # GitBook/Gitter) so the GitHub rule stays complete. The Git
+              # rule itself is NOT kept (removed 2026-10-18, SKIP_RULES).
+              _gh_path = os.path.join(dest, "GitHub.list")
+              if os.path.exists(_gh_path):
+                  _gits_url = ("https://raw.githubusercontent.com/QuixoticHeart/rule-set"
+                               "/ruleset/surge/gits.list")
+                  _gits_data = fetch(_gits_url)
+                  if _gits_data:
+                      _GH_RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
+                                        "IP-CIDR", "IP-CIDR6", "HOST", "HOST-SUFFIX",
+                                        "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
+                      def _gh_domain(line):
+                          s = line.strip()
+                          if not s or s.startswith("#"):
+                              return None
+                          parts = [p.strip() for p in s.split(",")]
+                          if len(parts) >= 2 and parts[0].upper() in _GH_RULE_TYPES:
+                              return parts[1].lstrip(".").lower()
+                          return parts[0].lstrip(".").lower()
+                      _gh_domains = set()
+                      for _gl in open(_gh_path, encoding="utf-8", errors="ignore").read().splitlines():
+                          _d = _gh_domain(_gl)
+                          if _d:
+                              _gh_domains.add(_d)
+                      _EXCLUDE = ("gitlab", "gitee", "gitbook", "gitter")
+                      _added = []
+                      for _l in _gits_data.decode("utf-8", errors="ignore").splitlines():
+                          _l = _l.strip()
+                          _d = _gh_domain(_l)
+                          if not _d or _d in _gh_domains:
+                              continue
+                          if any(_x in _d for _x in _EXCLUDE):
+                              continue
+                          _added.append(_l)
+                          _gh_domains.add(_d)
+                      if _added:
+                          with open(_gh_path, "a", encoding="utf-8") as _f:
+                              _f.write("\n" + "\n".join(_added) + "\n")
+                          print(f"  [GitHub] merged {len(_added)} GitHub-related rules from gits")
+
               # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
               # Surge-format IP-ASN list, synced as ChinaASN.list into
               # Surge and Egern only. Egern converts it to native .yaml in
@@ -321,7 +369,7 @@ jobs:
               # 2e. Egern: convert Surge .list extras + ChinaASN to native YAML
               # (2026-11-07) The 16 blackmatrix7/missuo rules now ship as
               # native Egern .yaml instead of Surge-compatible .list. Runs
-              # after 2b (ByteDance merge) and 2d (ChinaASN) so the merged
+              # after 2b (ByteDance merge), 2c (GitHub merge) and 2d (ChinaASN) so the merged
               # content is converted, not the pre-merge file. The .list
               # files are removed here, so the repo only ever holds .yaml
               # for Egern.
