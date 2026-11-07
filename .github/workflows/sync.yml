@@ -298,6 +298,21 @@ jobs:
                           with open(_bd_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [ByteDance] merged {len(_added)} DouYin-unique rules")
+                          # 2026-11-07: same ordering fix as GitHub (2c).
+                          # The appended lines landed after USER-AGENT /
+                          # IP-CIDR and 2 of the 3 are shadowed by base
+                          # DOMAIN-SUFFIX rules (same destination, harmless,
+                          # but wrong order). Sort by type, drop blank line.
+                          _BD_ORDER = {"DOMAIN": 0, "HOST": 0,
+                                       "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
+                                       "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
+                                       "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3,
+                                       "IP-CIDR": 4, "IP-CIDR6": 4, "GEOIP": 4,
+                                       "USER-AGENT": 5, "PROCESS-NAME": 6}
+                          _bd_all = [l for l in open(_bd_path, encoding="utf-8").read().splitlines() if l.strip()]
+                          _bd_all.sort(key=lambda l: _BD_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
+                          with open(_bd_path, "w", encoding="utf-8") as _f:
+                              _f.write("\n".join(_bd_all) + "\n")
 
               # 2c. GitHub: merge GitHub-related domains from QuixoticHeart gits
               # (2026-11-07) blackmatrix7's GitHub.list (31 rules) is missing
