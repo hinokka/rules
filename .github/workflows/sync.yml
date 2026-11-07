@@ -240,10 +240,10 @@ jobs:
               urls = gh_list("QuixoticHeart/rule-set", cfg["qdir"], "ruleset", cfg["ext"])
               print(f"[{client}] QuixoticHeart: {len(urls)} files")
               for url in urls:
-                  data = fetch(url)
-                  if not data:
-                      print(f"  FAIL {url}")
-                      continue
+                  # 2026-11-07: check skip BEFORE downloading. The old code
+                  # fetched the file first and threw it away; the filename
+                  # is already in the URL, so skipped rules are never
+                  # downloaded at all.
                   fn = os.path.basename(url)
                   stem = fn[:-len(cfg["ext"])]
                   if stem.lower() == "google":
@@ -252,6 +252,10 @@ jobs:
                       continue  # 2026-11-07: removed at the user's request
                   if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules", "tld-proxy"):
                       continue  # 2026-10-31: Clash CN/CNCIDR/Proxy/AdRules served as mrs only, classical .list no longer synced; 2026-11-07: TLD-Proxy also moved to mrs
+                  data = fetch(url)
+                  if not data:
+                      print(f"  FAIL {url}")
+                      continue
                   fn = RENAME.get(stem.lower(), stem) + cfg["ext"]
                   # Egern extra rules use .list (Surge-compatible)
                   with open(os.path.join(dest, fn), "wb") as f:
