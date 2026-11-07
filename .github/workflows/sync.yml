@@ -195,6 +195,7 @@ jobs:
           CLIENTS = {
               "Egern": {"qdir": "egern", "ext": ".yaml", "bmdir": "rule/Surge"},
               "Surge": {"qdir": "surge", "ext": ".list", "bmdir": "rule/Surge"},
+              "Clash": {"qdir": "meta", "ext": ".list", "bmdir": "rule/Clash"},
           }
 
           for client, cfg in CLIENTS.items():
@@ -216,6 +217,8 @@ jobs:
                       continue  # Google rule comes from blackmatrix7
                   if stem.lower() in SKIP_RULES:
                       continue  # 2026-11-07: removed at the user's request
+                  if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules"):
+                      continue  # 2026-10-31: Clash CN/CNCIDR/Proxy/AdRules served as mrs only, classical .list no longer synced
                   fn = RENAME.get(stem.lower(), stem) + cfg["ext"]
                   # Egern extra rules use .list (Surge-compatible)
                   with open(os.path.join(dest, fn), "wb") as f:
@@ -387,16 +390,53 @@ jobs:
                       print("  [Egern YAML] %s.yaml: %s (dropped PROCESS-NAME: %d, skipped: %d)" % (
                           _name, _stats["counts"], _stats["dropped"], len(_stats["skipped"])))
 
+              # 2f. Clash MRS for CN / CNCIDR / Proxy / AdRules (2026-10-31, memory fix)
+              # QuixoticHeart already splits meta into domain/ipcidr/mrs;
+              # only these large rules switch to mrs; all other Clash
+              # rules stay classical .list.
+              # Upstream name trap: the IP split is meta/ipcidr/cn.mrs,
+              # not cncidr.mrs. On fetch failure, keep the repo's old .mrs.
+              if client == "Clash":
+                  _mrs_map = {
+                      "CN.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/cn.mrs",
+                      "CNCIDR.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/cn.mrs",
+                      # Proxy: upstream has two proxy.mrs files (domain/ and ipcidr/);
+                      # the repo is flat, so the ipcidr one is renamed Proxy-IP.mrs.
+                      "Proxy.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/proxy.mrs",
+                      "Proxy-IP.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/proxy.mrs",
+                      # AdRules: same split as Proxy; the ipcidr one is
+                      # renamed AdRules-IP.mrs. Domain mrs drops the
+                      # classical KEYWORD/REGEX/WILDCARD rows.
+                      "AdRules.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/adrules.mrs",
+                      "AdRules-IP.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/ipcidr/adrules.mrs",
+                  }
+                  for _fn, _url in _mrs_map.items():
+                      _data = fetch(_url)
+                      if _data:
+                          with open(os.path.join(dest, _fn), "wb") as _f:
+                              _f.write(_data)
+                          ok += 1
+                          print(f"  [Clash MRS] {_fn} ok ({len(_data)} bytes)")
+                      else:
+                          _old_fp = os.path.join("Clash", _fn)
+                          if os.path.exists(_old_fp):
+                              shutil.copy(_old_fp, os.path.join(dest, _fn))
+                              ok += 1
+                              print(f"  [Clash MRS] {_fn} fetch failed, kept old version")
+                          else:
+                              print(f"  [Clash MRS] FAIL {_url}")
+
               print(f"[{client}] done: {ok} files")
           PYEOF
 
       - name: Atomic publish to repo
         run: |
           set -e
-          rm -rf Egern Surge
+          rm -rf Egern Surge Clash
           cp -r /tmp/new/Egern Egern
           cp -r /tmp/new/Surge Surge
-          echo "published: $(ls Egern | wc -l) egern, $(ls Surge | wc -l) surge"
+          cp -r /tmp/new/Clash Clash
+          echo "published: $(ls Egern | wc -l) egern, $(ls Surge | wc -l) surge, $(ls Clash | wc -l) clash"
 
       - name: Commit and push if changed
         run: |
