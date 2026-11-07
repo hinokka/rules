@@ -2,7 +2,6 @@ name: sync-rules
 
 on:
   schedule:
-    # Daily sync at 00:00 Beijing Time
     - cron: '0 16 * * *'
   workflow_dispatch:
 
@@ -15,11 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Optimization 2: work on the rules branch itself, so the old rule
-          # files are present locally and the 2d/2f "keep old version on
-          # fetch failure" fallback actually works (on master they don't
-          # exist, so the fallback could never trigger). The workflow file
-          # itself stays on master; only the working directory switches.
           ref: rules
           fetch-depth: 0
 
@@ -31,7 +25,7 @@ jobs:
           import json, os, re, shutil, urllib.request
           from concurrent.futures import ThreadPoolExecutor
 
-          # Optimization 4: upstream base URLs in one place.
+
           QHEART_RAW = "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset"
           BM7_RAW = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master"
           MISSUO_ASN_URL = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
@@ -56,7 +50,7 @@ jobs:
               return None
 
           def gh_list(repo, path, ref, ext):
-              """List files in a GitHub repo directory."""
+
               url = f"https://api.github.com/repos/{repo}/contents/{path}?ref={ref}"
               data = fetch(url, auth=True)
               if not data:
@@ -69,11 +63,11 @@ jobs:
                   return []
 
           def strip_leading_hash_comments(data):
-              """Drop the leading '#' comment block (blackmatrix7 file header:
-              # NAME / # AUTHOR / # REPO / # UPDATED / # ... / # TOTAL).
-              Only consecutive '#' lines at the very top are removed; rule
-              lines and any '#' lines after the first rule are kept.
-              2026-11-07: user asked to drop the bm7 header leftovers."""
+          \
+          \
+          \
+          \
+
               try:
                   text = data.decode("utf-8", errors="ignore")
               except Exception:
@@ -86,13 +80,13 @@ jobs:
                   return data
               return ("\n".join(lines[i:]) + "\n").encode("utf-8")
 
-          # Surge .list -> Egern native YAML converter (2026-11-07)
-          # Mapping matches the hub's existing QuixoticHeart Egern YAMLs and
-          # the Repcz/EgernRules converter (same blackmatrix7 source data).
-          # PROCESS-NAME is dropped: Surge manual says Mac-only, Egern has no
-          # process rule type, so it never matches on iOS.
-          # no_resolve: true is emitted iff the file has any ip/asn set
-          # (same pattern as the hub's existing Egern YAMLs).
+
+
+
+
+
+
+
           _EGERN_TYPE_MAP = {
               "DOMAIN": "domain_set",
               "DOMAIN-SUFFIX": "domain_suffix_set",
@@ -150,11 +144,11 @@ jobs:
                       continue
                   rtype = parts[0].upper()
                   value = parts[1]
-                  # ChinaASN lines carry a trailing "// comment" after the value
+
                   if rtype == "IP-ASN" and " //" in value:
                       value = value.split(" //", 1)[0].rstrip()
-                  # OR,(...) is a logical OR of sub-rules; a rule set is OR
-                  # anyway, so flatten it and convert each sub-rule.
+
+
                   if rtype == "OR":
                       for inner in re.findall(r"\(([^()]+)\)", line):
                           ip = [p.strip() for p in inner.split(",")]
@@ -190,7 +184,7 @@ jobs:
                          "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
 
           def rule_domain(line):
-              """Extract the domain/value from a rule line (for merge dedup)."""
+
               s = line.strip()
               if not s or s.startswith("#"):
                   return None
@@ -200,13 +194,13 @@ jobs:
               return parts[0].lstrip(".").lower()
 
           def valid_rule_content(data, ext):
-              """Optimization 3: reject HTML error pages / empty downloads
-              before they become rule files. Returns True if the content
-              looks like a real rule file of the given extension."""
+          \
+          \
+
               if not data or len(data) < 10:
                   return False
               if ext == ".mrs":
-                  # Binary .mrs: reject if it looks like text/HTML.
+
                   head = data[:200].lstrip()
                   if head.startswith(b"<") or b"<html" in data[:1000].lower():
                       return False
@@ -232,14 +226,14 @@ jobs:
               return False
 
           def sort_rule_file(path, order_map):
-              """Sort a .list rule file by rule type (specific rules first)
-              and drop blank lines. Used by the 2b/2c merges."""
+          \
+
               _lines = [l for l in open(path, encoding="utf-8").read().splitlines() if l.strip()]
               _lines.sort(key=lambda l: order_map.get(l.split(",", 1)[0].strip().upper(), 99))
               with open(path, "w", encoding="utf-8") as _f:
                   _f.write("\n".join(_lines) + "\n")
 
-          # Filename normalization (QuixoticHeart -> blackmatrix7 conventions)
+
           RENAME = {
               "adrules": "AdRules", "ai": "AI", "apns": "APNs",
               "apple-cn": "Apple-CN", "apple-proxy": "Apple-Proxy", "apple-tv": "AppleTV",
@@ -256,10 +250,10 @@ jobs:
               "youtube": "YouTube",
           }
 
-          # Extra rules from blackmatrix7 (Google overrides QuixoticHeart's).
-          # 2026-11-07: Facebook/Whatsapp/Line/VK removed here (deleted
-          # at the user's request; the repo allowlist keeps them out)
-          # instead of being listed and then skipped in the loop below.
+
+
+
+
           EXTRA = ["HuYa", "Discord", "Instagram", "Telegram", "Twitter",
                    "NetEaseMusic", "GitHub", "Reddit", "Pixiv",
                    "Google", "ByteDance"]
@@ -276,15 +270,15 @@ jobs:
               os.makedirs(dest, exist_ok=True)
               ok = 0
 
-              # 2026-11-07: the repo itself is the allowlist. Only rules
-              # already in the repo are synced; new upstream rules never
-              # auto-appear (user: the repo holds only rules they use).
-              # Deleted rules can never come back, so no SKIP list is needed.
+
+
+
+
               _repo_urls = gh_list("hinokka/rules", client, "rules", cfg["ext"])
-              # NOTE: Clash also has .mrs files, so strip the extension with
-              # splitext instead of slicing by len(cfg["ext"]) ("CN.mrs"[:-5]
-              # is "C", which broke the 2f allowlist and dropped all 7 .mrs).
-              # gh_list filters by ext, so list .mrs separately for Clash.
+
+
+
+
               if client == "Clash":
                   _repo_urls += gh_list("hinokka/rules", client, "rules", ".mrs")
               _repo_stems = set()
@@ -293,23 +287,23 @@ jobs:
                   _repo_stems.add(os.path.splitext(_fn)[0])
               print(f"[{client}] repo allowlist: {len(_repo_stems)} files")
 
-              # 1. QuixoticHeart ruleset
+
               urls = gh_list("QuixoticHeart/rule-set", cfg["qdir"], "ruleset", cfg["ext"])
               print(f"[{client}] QuixoticHeart: {len(urls)} files")
-              # Optimization 1: filter first (cheap), then fetch the rest in
-              # parallel instead of one by one. The filename is already in
-              # the URL, so skipped rules are never downloaded at all.
+
+
+
               _tasks = []
               for url in urls:
                   fn = os.path.basename(url)
                   stem = fn[:-len(cfg["ext"])]
                   if stem.lower() == "google":
-                      continue  # Google rule comes from blackmatrix7
+                      continue                                       
                   if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules", "tld-proxy"):
-                      continue  # 2026-10-31: Clash CN/CNCIDR/Proxy/AdRules served as mrs only, classical .list no longer synced; 2026-11-07: TLD-Proxy also moved to mrs
+                      continue                                                                                                                                           
                   _norm = RENAME.get(stem.lower(), stem)
                   if _norm not in _repo_stems:
-                      continue  # not in the repo: new upstream rule, user does not want it
+                      continue                                                             
                   _tasks.append((url, _norm + cfg["ext"]))
               with ThreadPoolExecutor(max_workers=16) as _ex:
                   _results = list(_ex.map(lambda t: (t[1], fetch(t[0])), _tasks))
@@ -324,12 +318,12 @@ jobs:
                       f.write(strip_leading_hash_comments(_data))
                   ok += 1
 
-              # 2. blackmatrix7 extras (Optimization 1: fetch in parallel)
+
               _extra_tasks = []
               for name in EXTRA:
                   if name not in _repo_stems:
-                      continue  # not in the repo, do not re-add
-                  ext = ".list"  # extras are always .list (Surge-compatible for Egern)
+                      continue                                  
+                  ext = ".list"                                                        
                   url = f"{BM7_RAW}/{cfg['bmdir']}/{name}/{name}{ext}"
                   _extra_tasks.append((name, url))
               with ThreadPoolExecutor(max_workers=8) as _ex:
@@ -344,8 +338,8 @@ jobs:
                   with open(os.path.join(dest, f"{name}.list"), "wb") as f:
                       f.write(strip_leading_hash_comments(data))
                   ok += 1
-              # 2b. ByteDance: merge DouYin-unique rules (blackmatrix7's ByteDance.list
-              # misses snssdk.com etc.; DouYin.list has 3 rules not in ByteDance)
+
+
               _bd_path = os.path.join(dest, "ByteDance.list")
               if os.path.exists(_bd_path):
                   _dy_url = f"{BM7_RAW}/{cfg['bmdir']}/DouYin/DouYin.list"
@@ -354,8 +348,8 @@ jobs:
                       print("  [ByteDance] DouYin.list invalid, merge skipped")
                       _dy_data = None
                   if _dy_data:
-                      # Compare by domain, not whole line, so same-domain lines
-                      # with a different policy suffix are not counted as new rules.
+
+
                       _bd_domains = set()
                       for _bl in open(_bd_path, encoding="utf-8", errors="ignore").read().splitlines():
                           _d = rule_domain(_bl)
@@ -372,13 +366,13 @@ jobs:
                           with open(_bd_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [ByteDance] merged {len(_added)} DouYin-unique rules")
-                      # 2026-11-07: sort by type every run (not only when
-                      # something was merged). The appended lines landed
-                      # after USER-AGENT / IP-CIDR and 2 of the 3 are
-                      # shadowed by base DOMAIN-SUFFIX rules (same
-                      # destination, harmless, but wrong order). Loon/QX
-                      # skipped the sort on the first pass because their
-                      # _added was empty that run.
+
+
+
+
+
+
+
                       _BD_ORDER = {"DOMAIN": 0, "HOST": 0,
                                    "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
                                    "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
@@ -387,23 +381,23 @@ jobs:
                                    "USER-AGENT": 5, "PROCESS-NAME": 6}
                       sort_rule_file(_bd_path, _BD_ORDER)
 
-              # 2c. GitHub: merge GitHub-related domains from QuixoticHeart gits
-              # (2026-11-07) blackmatrix7's GitHub.list (31 rules) is missing
-              # GitHub's backend storage domains (github-production-*.s3,
-              # productionresultssa*.blob, copilot attachments, arkoselabs)
-              # and a few GitHub services (gh.io, ghe.com, github.ai,
-              # github.career, githubsupport.com, octocaptcha.com).
-              # QuixoticHeart's gits rule has them (76 rules, a superset of
-              # GitHub). Merge the GitHub-related ones (skip GitLab/Gitee/
-              # GitBook/Gitter) so the GitHub rule stays complete. The Git
-              # rule itself is NOT kept (removed 2026-10-18; the repo
-              # allowlist keeps it out).
+
+
+
+
+
+
+
+
+
+
+
               _gh_path = os.path.join(dest, "GitHub.list")
               if os.path.exists(_gh_path):
-                  # 2026-11-07: fetch each client's own gits (QuixoticHeart
-                  # ships one per client); Egern keeps surge/gits.list
-                  # because its merge target is a Surge-format .list
-                  # (egern/gits.yaml is YAML, not appendable).
+
+
+
+
                   if client == "Egern":
                       _gits_url = f"{QHEART_RAW}/surge/gits.list"
                   else:
@@ -430,38 +424,38 @@ jobs:
                           _added.append(_l)
                           _gh_domains.add(_d)
                       if _added and client == "QuantumultX":
-                          # QX gits lines carry a ,gits policy tag; retag
-                          # to ,GitHub to match the GitHub.list file.
+
+
                           _added = [(_l.rstrip()[:-5] + ",GitHub") if _l.rstrip().endswith(",gits") else _l
                                     for _l in _added]
                       if _added:
                           with open(_gh_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [GitHub] merged {len(_added)} GitHub-related rules from gits")
-                      # 2026-11-07: sort by type every run, not only when
-                      # something was merged (same lesson as 2b: a run with
-                      # empty _added would otherwise skip the sort forever).
-                      # DOMAIN/HOST first, then -SUFFIX, then -KEYWORD.
-                      # The appended gits lines were landing after the bm7
-                      # DOMAIN-KEYWORD,github line, which shadows 9 of them
-                      # (same destination, so harmless, but wrong order).
-                      # Blank line dropped in the sort.
+
+
+
+
+
+
+
+
                       _TYPE_ORDER = {"DOMAIN": 0, "HOST": 0,
                                      "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
                                      "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
                                      "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3}
                       sort_rule_file(_gh_path, _TYPE_ORDER)
 
-              # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
-              # Surge-format IP-ASN list, synced as ChinaASN.list into
-              # Surge, Egern, Loon and QuantumultX. Egern converts it to
-              # native .yaml in step 2e below. On fetch failure, keep the
-              # repo's old file (Egern prefers the old .yaml).
-              # 2026-11-07: every IP-ASN line gets ,no-resolve (missuo
-              # carries none; matches the Egern YAML no_resolve and
-              # bm7's ChinaASN). 2026-11-07: QuantumultX does NOT get
-              # no-resolve (QX does not support it). 2026-11-07: strip
-              # all missuo // comments (header lines + trailing org names).
+
+
+
+
+
+
+
+
+
+
               if client in ("Surge", "Egern", "Loon", "QuantumultX") and "ChinaASN" in _repo_stems:
                   _asn_url = MISSUO_ASN_URL
                   _asn_data = fetch(_asn_url)
@@ -500,13 +494,13 @@ jobs:
                           else:
                               print(f"  [ChinaASN] FAIL {_asn_url}")
 
-              # 2e. Egern: convert Surge .list extras + ChinaASN to native YAML
-              # (2026-11-07) The 16 blackmatrix7/missuo rules now ship as
-              # native Egern .yaml instead of Surge-compatible .list. Runs
-              # after 2b (ByteDance merge), 2c (GitHub merge) and 2d (ChinaASN) so the merged
-              # content is converted, not the pre-merge file. The .list
-              # files are removed here, so the repo only ever holds .yaml
-              # for Egern.
+
+
+
+
+
+
+
               if client == "Egern":
                   for _name in EXTRA + ["ChinaASN"]:
                       _lp = os.path.join(dest, "%s.list" % _name)
@@ -521,26 +515,26 @@ jobs:
                       print("  [Egern YAML] %s.yaml: %s (dropped PROCESS-NAME: %d, skipped: %d)" % (
                           _name, _stats["counts"], _stats["dropped"], len(_stats["skipped"])))
 
-              # 2f. Clash MRS for CN / CNCIDR / Proxy / AdRules / TLD-Proxy (2026-10-31, memory fix; TLD-Proxy added 2026-11-07)
-              # QuixoticHeart already splits meta into domain/ipcidr/mrs;
-              # only these large rules switch to mrs; all other Clash
-              # rules stay classical .list.
-              # Upstream name trap: the IP split is meta/ipcidr/cn.mrs,
-              # not cncidr.mrs. On fetch failure, keep the repo's old .mrs.
+
+
+
+
+
+
               if client == "Clash":
                   _mrs_map = {
                       "CN.mrs": f"{QHEART_RAW}/meta/domain/cn.mrs",
                       "CNCIDR.mrs": f"{QHEART_RAW}/meta/ipcidr/cn.mrs",
-                      # Proxy: upstream has two proxy.mrs files (domain/ and ipcidr/);
-                      # the repo is flat, so the ipcidr one is renamed Proxy-IP.mrs.
+
+
                       "Proxy.mrs": f"{QHEART_RAW}/meta/domain/proxy.mrs",
                       "Proxy-IP.mrs": f"{QHEART_RAW}/meta/ipcidr/proxy.mrs",
-                      # AdRules: same split as Proxy; the ipcidr one is
-                      # renamed AdRules-IP.mrs. Domain mrs drops the
-                      # classical KEYWORD/REGEX/WILDCARD rows.
+
+
+
                       "AdRules.mrs": f"{QHEART_RAW}/meta/domain/adrules.mrs",
                       "AdRules-IP.mrs": f"{QHEART_RAW}/meta/ipcidr/adrules.mrs",
-                      # TLD-Proxy: single domain-only mrs (no IP rows, no ipcidr split).
+
                       "TLD-Proxy.mrs": f"{QHEART_RAW}/meta/domain/tld-proxy.mrs",
                   }
                   for _fn, _url in _mrs_map.items():
@@ -568,8 +562,6 @@ jobs:
       - name: Atomic publish to rules branch
         run: |
           set -e
-          # Already on the rules branch (checkout used ref: rules); master
-          # holds only the workflow, README and LICENSE.
           rm -rf Loon Egern Surge Clash QuantumultX
           cp -r /tmp/new/Loon Loon
           cp -r /tmp/new/Egern Egern
