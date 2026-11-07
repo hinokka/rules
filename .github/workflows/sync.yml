@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history so the rules branch can be checked out for publishing
 
       - name: Sync rules
         env:
@@ -431,9 +433,13 @@ jobs:
               print(f"[{client}] done: {ok} files")
           PYEOF
 
-      - name: Atomic publish to repo
+      - name: Atomic publish to rules branch
         run: |
           set -e
+          # Rules live on the rules branch; master holds only the workflow,
+          # README and LICENSE (2026-11-07 restructure).
+          git fetch origin rules
+          git checkout -B rules origin/rules
           rm -rf Egern Surge Clash
           cp -r /tmp/new/Egern Egern
           cp -r /tmp/new/Surge Surge
@@ -449,5 +455,5 @@ jobs:
             echo "no changes"
           else
             git commit -m "chore: sync rules $(date -u +%Y-%m-%d)"
-            git push
+            git push origin rules
           fi
