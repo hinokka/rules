@@ -1,6 +1,6 @@
 # rules
 
-https://hub.hin0ka.com
+  https://hub.hin0ka.com
 
 ## Acknowledgements
 
