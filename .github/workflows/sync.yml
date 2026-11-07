@@ -342,6 +342,23 @@ jobs:
                               continue
                           _added.append(_l)
                           _gh_domains.add(_d)
+                      if _added and client == "QuantumultX":
+                          # QX uses HOST* types (not DOMAIN*) plus a policy
+                          # field; convert the Surge-format gits lines.
+                          # 2026-11-07: the merge appended raw DOMAIN lines
+                          # into the HOST file (user caught it).
+                          _QX_MAP = {"DOMAIN": "HOST", "DOMAIN-SUFFIX": "HOST-SUFFIX",
+                                     "DOMAIN-KEYWORD": "HOST-KEYWORD",
+                                     "DOMAIN-WILDCARD": "HOST-WILDCARD"}
+                          _conv = []
+                          for _l in _added:
+                              _p = [x.strip() for x in _l.split(",")]
+                              if _p and _p[0].upper() in _QX_MAP:
+                                  _p[0] = _QX_MAP[_p[0].upper()]
+                              if len(_p) == 2:
+                                  _p.append("GitHub")
+                              _conv.append(",".join(_p))
+                          _added = _conv
                       if _added:
                           with open(_gh_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
