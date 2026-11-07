@@ -58,6 +58,24 @@ jobs:
               except Exception:
                   return []
 
+          def strip_leading_hash_comments(data):
+              """Drop the leading '#' comment block (blackmatrix7 file header:
+              # NAME / # AUTHOR / # REPO / # UPDATED / # ... / # TOTAL).
+              Only consecutive '#' lines at the very top are removed; rule
+              lines and any '#' lines after the first rule are kept.
+              2026-11-07: user asked to drop the bm7 header leftovers."""
+              try:
+                  text = data.decode("utf-8", errors="ignore")
+              except Exception:
+                  return data
+              lines = text.splitlines()
+              i = 0
+              while i < len(lines) and lines[i].lstrip().startswith("#"):
+                  i += 1
+              if i == 0 or i >= len(lines):
+                  return data
+              return ("\n".join(lines[i:]) + "\n").encode("utf-8")
+
           # Surge .list -> Egern native YAML converter (2026-11-07)
           # Mapping matches the hub's existing QuixoticHeart Egern YAMLs and
           # the Repcz/EgernRules converter (same blackmatrix7 source data).
@@ -226,7 +244,7 @@ jobs:
                   fn = RENAME.get(stem.lower(), stem) + cfg["ext"]
                   # Egern extra rules use .list (Surge-compatible)
                   with open(os.path.join(dest, fn), "wb") as f:
-                      f.write(data)
+                      f.write(strip_leading_hash_comments(data))
                   ok += 1
 
               # 2. blackmatrix7 extras
@@ -239,7 +257,7 @@ jobs:
                   data = fetch(url)
                   if data:
                       with open(os.path.join(dest, f"{name}{ext}"), "wb") as f:
-                          f.write(data)
+                          f.write(strip_leading_hash_comments(data))
                       ok += 1
                   else:
                       print(f"  FAIL(extra) {name}")
