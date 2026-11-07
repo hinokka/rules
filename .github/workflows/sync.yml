@@ -501,8 +501,6 @@ jobs:
                       "TLD-Proxy.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/tld-proxy.mrs",
                   }
                   for _fn, _url in _mrs_map.items():
-                      if _fn[:-4] not in _repo_stems:
-                          continue  # not in the repo, do not re-add
                       _data = fetch(_url)
                       if _data:
                           with open(os.path.join(dest, _fn), "wb") as _f:
