@@ -298,21 +298,23 @@ jobs:
                           with open(_bd_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [ByteDance] merged {len(_added)} DouYin-unique rules")
-                          # 2026-11-07: same ordering fix as GitHub (2c).
-                          # The appended lines landed after USER-AGENT /
-                          # IP-CIDR and 2 of the 3 are shadowed by base
-                          # DOMAIN-SUFFIX rules (same destination, harmless,
-                          # but wrong order). Sort by type, drop blank line.
-                          _BD_ORDER = {"DOMAIN": 0, "HOST": 0,
-                                       "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
-                                       "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
-                                       "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3,
-                                       "IP-CIDR": 4, "IP-CIDR6": 4, "GEOIP": 4,
-                                       "USER-AGENT": 5, "PROCESS-NAME": 6}
-                          _bd_all = [l for l in open(_bd_path, encoding="utf-8").read().splitlines() if l.strip()]
-                          _bd_all.sort(key=lambda l: _BD_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
-                          with open(_bd_path, "w", encoding="utf-8") as _f:
-                              _f.write("\n".join(_bd_all) + "\n")
+                      # 2026-11-07: sort by type every run (not only when
+                      # something was merged). The appended lines landed
+                      # after USER-AGENT / IP-CIDR and 2 of the 3 are
+                      # shadowed by base DOMAIN-SUFFIX rules (same
+                      # destination, harmless, but wrong order). Loon/QX
+                      # skipped the sort on the first pass because their
+                      # _added was empty that run.
+                      _BD_ORDER = {"DOMAIN": 0, "HOST": 0,
+                                   "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
+                                   "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
+                                   "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3,
+                                   "IP-CIDR": 4, "IP-CIDR6": 4, "GEOIP": 4,
+                                   "USER-AGENT": 5, "PROCESS-NAME": 6}
+                      _bd_all = [l for l in open(_bd_path, encoding="utf-8").read().splitlines() if l.strip()]
+                      _bd_all.sort(key=lambda l: _BD_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
+                      with open(_bd_path, "w", encoding="utf-8") as _f:
+                          _f.write("\n".join(_bd_all) + "\n")
 
               # 2c. GitHub: merge GitHub-related domains from QuixoticHeart gits
               # (2026-11-07) blackmatrix7's GitHub.list (31 rules) is missing
@@ -374,20 +376,22 @@ jobs:
                           with open(_gh_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [GitHub] merged {len(_added)} GitHub-related rules from gits")
-                          # 2026-11-07: sort by type so specific rules are
-                          # read first (DOMAIN/HOST, then -SUFFIX, then
-                          # -KEYWORD). The appended gits lines were landing
-                          # after the bm7 DOMAIN-KEYWORD,github line, which
-                          # shadows 9 of them (same destination, so harmless,
-                          # but wrong order). Blank line dropped in the sort.
-                          _TYPE_ORDER = {"DOMAIN": 0, "HOST": 0,
-                                         "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
-                                         "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
-                                         "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3}
-                          _all = [l for l in open(_gh_path, encoding="utf-8").read().splitlines() if l.strip()]
-                          _all.sort(key=lambda l: _TYPE_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
-                          with open(_gh_path, "w", encoding="utf-8") as _f:
-                              _f.write("\n".join(_all) + "\n")
+                      # 2026-11-07: sort by type every run, not only when
+                      # something was merged (same lesson as 2b: a run with
+                      # empty _added would otherwise skip the sort forever).
+                      # DOMAIN/HOST first, then -SUFFIX, then -KEYWORD.
+                      # The appended gits lines were landing after the bm7
+                      # DOMAIN-KEYWORD,github line, which shadows 9 of them
+                      # (same destination, so harmless, but wrong order).
+                      # Blank line dropped in the sort.
+                      _TYPE_ORDER = {"DOMAIN": 0, "HOST": 0,
+                                     "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
+                                     "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
+                                     "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3}
+                      _all = [l for l in open(_gh_path, encoding="utf-8").read().splitlines() if l.strip()]
+                      _all.sort(key=lambda l: _TYPE_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
+                      with open(_gh_path, "w", encoding="utf-8") as _f:
+                          _f.write("\n".join(_all) + "\n")
 
               # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
               # Surge-format IP-ASN list, synced as ChinaASN.list into
