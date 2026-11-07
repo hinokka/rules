@@ -359,6 +359,20 @@ jobs:
                           with open(_gh_path, "a", encoding="utf-8") as _f:
                               _f.write("\n" + "\n".join(_added) + "\n")
                           print(f"  [GitHub] merged {len(_added)} GitHub-related rules from gits")
+                          # 2026-11-07: sort by type so specific rules are
+                          # read first (DOMAIN/HOST, then -SUFFIX, then
+                          # -KEYWORD). The appended gits lines were landing
+                          # after the bm7 DOMAIN-KEYWORD,github line, which
+                          # shadows 9 of them (same destination, so harmless,
+                          # but wrong order). Blank line dropped in the sort.
+                          _TYPE_ORDER = {"DOMAIN": 0, "HOST": 0,
+                                         "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
+                                         "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
+                                         "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3}
+                          _all = [l for l in open(_gh_path, encoding="utf-8").read().splitlines() if l.strip()]
+                          _all.sort(key=lambda l: _TYPE_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
+                          with open(_gh_path, "w", encoding="utf-8") as _f:
+                              _f.write("\n".join(_all) + "\n")
 
               # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
               # Surge-format IP-ASN list, synced as ChinaASN.list into
