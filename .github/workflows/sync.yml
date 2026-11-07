@@ -1,0 +1,362 @@
+name: sync-rules
+
+on:
+  schedule:
+    # Daily sync at 00:00 Beijing Time
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync rules
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'PYEOF'
+          import json, os, re, shutil, urllib.request
+          from datetime import datetime, timezone
+
+          NEW = "/tmp/new"
+          os.makedirs(NEW, exist_ok=True)
+
+          import os as _os
+          _GH_TOKEN = _os.environ.get("GH_TOKEN", "")
+
+          def fetch(url, retries=3, auth=False, ua=None):
+              for i in range(retries):
+                  try:
+                      headers = {"User-Agent": ua or "rules-sync/1.0"}
+                      if auth and _GH_TOKEN:
+                          headers["Authorization"] = f"Bearer {_GH_TOKEN}"
+                      req = urllib.request.Request(url, headers=headers)
+                      with urllib.request.urlopen(req, timeout=30) as r:
+                          if r.status == 200:
+                              return r.read()
+                  except Exception as e:
+                      print(f"  retry {i+1}: {e}")
+              return None
+
+          def gh_list(repo, path, ref, ext):
+              """List files in a GitHub repo directory."""
+              url = f"https://api.github.com/repos/{repo}/contents/{path}?ref={ref}"
+              data = fetch(url, auth=True)
+              if not data:
+                  return []
+              try:
+                  items = json.loads(data)
+                  return [x["download_url"] for x in items
+                          if x["type"] == "file" and x["name"].endswith(ext)]
+              except Exception:
+                  return []
+
+          # Surge .list -> Egern native YAML converter (2026-11-07)
+          # Mapping matches the hub's existing QuixoticHeart Egern YAMLs and
+          # the Repcz/EgernRules converter (same blackmatrix7 source data).
+          # PROCESS-NAME is dropped: Surge manual says Mac-only, Egern has no
+          # process rule type, so it never matches on iOS.
+          # no_resolve: true is emitted iff the file has any ip/asn set
+          # (same pattern as the hub's existing Egern YAMLs).
+          _EGERN_TYPE_MAP = {
+              "DOMAIN": "domain_set",
+              "DOMAIN-SUFFIX": "domain_suffix_set",
+              "DOMAIN-KEYWORD": "domain_keyword_set",
+              "DOMAIN-WILDCARD": "domain_wildcard_set",
+              "IP-CIDR": "ip_cidr_set",
+              "IP-CIDR6": "ip_cidr6_set",
+              "IP-ASN": "asn_set",
+              "USER-AGENT": "user_agent_set",
+              "URL-REGEX": "url_regex_set",
+              "GEOIP": "geoip_set",
+              "DEST-PORT": "dest_port_set",
+          }
+          _EGERN_DROP_TYPES = {"PROCESS-NAME"}
+          _EGERN_IP_KEYS = {"ip_cidr_set", "ip_cidr6_set", "asn_set"}
+          _EGERN_KEY_ORDER = ["domain_set", "domain_suffix_set",
+                              "domain_keyword_set", "domain_wildcard_set",
+                              "ip_cidr_set", "ip_cidr6_set", "asn_set",
+                              "user_agent_set", "url_regex_set",
+                              "dest_port_set", "geoip_set"]
+          _EGERN_PLAIN_SAFE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.\-/:]*")
+
+          def _egern_yaml_quote(v, always=False):
+              if not always and _EGERN_PLAIN_SAFE.fullmatch(v):
+                  return v
+              return "'" + v.replace("'", "''") + "'"
+
+          def _egern_convert_one(sets, dropped, skipped, rtype, value):
+              if rtype in _EGERN_DROP_TYPES:
+                  dropped.append("%s,%s" % (rtype, value))
+                  return
+              key = _EGERN_TYPE_MAP.get(rtype)
+              if not key:
+                  skipped.append("%s,%s" % (rtype, value))
+                  return
+              if rtype == "DOMAIN-SUFFIX":
+                  value = value.lstrip(".")
+              if rtype == "IP-ASN":
+                  m = re.fullmatch(r"(?i)AS(\d+)", value)
+                  if m:
+                      value = m.group(1)
+              sets.setdefault(key, set()).add(value)
+
+          def convert_list_to_egern_yaml(text):
+              sets = {}
+              dropped = []
+              skipped = []
+              for raw in text.splitlines():
+                  line = raw.strip()
+                  if not line or line.startswith("#") or line.startswith("//"):
+                      continue
+                  parts = [p.strip() for p in line.split(",")]
+                  if len(parts) < 2:
+                      skipped.append(line)
+                      continue
+                  rtype = parts[0].upper()
+                  value = parts[1]
+                  # ChinaASN lines carry a trailing "// comment" after the value
+                  if rtype == "IP-ASN" and " //" in value:
+                      value = value.split(" //", 1)[0].rstrip()
+                  # OR,(...) is a logical OR of sub-rules; a rule set is OR
+                  # anyway, so flatten it and convert each sub-rule.
+                  if rtype == "OR":
+                      for inner in re.findall(r"\(([^()]+)\)", line):
+                          ip = [p.strip() for p in inner.split(",")]
+                          if len(ip) >= 2:
+                              _egern_convert_one(sets, dropped, skipped, ip[0].upper(), ip[1])
+                          else:
+                              skipped.append(inner)
+                      continue
+                  _egern_convert_one(sets, dropped, skipped, rtype, value)
+              out = []
+              if any(k in sets for k in _EGERN_IP_KEYS):
+                  out.append("no_resolve: true")
+              for key in _EGERN_KEY_ORDER:
+                  vals = sets.get(key)
+                  if not vals:
+                      continue
+                  out.append("%s:" % key)
+                  if key == "asn_set":
+                      for v in sorted(vals, key=lambda x: int(x)):
+                          out.append("- '%s'" % v)
+                  elif key in ("user_agent_set", "url_regex_set"):
+                      for v in sorted(vals):
+                          out.append("- %s" % _egern_yaml_quote(v, always=True))
+                  else:
+                      for v in sorted(vals):
+                          out.append("- %s" % _egern_yaml_quote(v))
+              stats = {"counts": {k: len(v) for k, v in sets.items()},
+                       "dropped": len(dropped), "skipped": skipped}
+              return "\n".join(out) + "\n", stats
+
+          # Filename normalization (QuixoticHeart -> blackmatrix7 conventions)
+          RENAME = {
+              "adrules": "AdRules", "ai": "AI", "apns": "APNs",
+              "apple-cn": "Apple-CN", "apple-proxy": "Apple-Proxy", "apple-tv": "AppleTV",
+              "apple": "Apple", "bilibili": "BiliBili",
+              "cdn": "CDN", "cn": "CN",
+              "cncidr": "CNCIDR", "crypto": "Crypto", 
+              "disney": "Disney", "dmca": "DMCA", "douyin": "DouYin",
+              "games-cn": "Games-CN",
+              "games": "Games", "gfw": "GFW", "gits": "Git", "google": "Google",
+              "httpdns": "HttpDNS",
+
+
+              "netflix": "Netflix",
+
+              "private": "Private", "proxy": "Proxy",
+
+              "speedtest": "Speedtest", "spotify": "Spotify", 
+              "tiktok": "TikTok", "tld-proxy": "TLD-Proxy", "twitch": "Twitch",
+              "youtube": "YouTube",
+          }
+
+          # Extra rules from blackmatrix7 (Google overrides QuixoticHeart's)
+          EXTRA = ["HuYa", "Discord", "Instagram", "Telegram", "Twitter",
+                   "NetEaseMusic", "GitHub", "Facebook", "Whatsapp",
+                   "Reddit", "Pixiv", "Line", "VK", "Google", "ByteDance"]
+          EXTRA_NAMES = set(EXTRA)
+
+          # Rules removed at the user's request (2026-11-07):
+          # not synced, not kept in the repo.
+          SKIP_RULES = {"abema", "bahamut", "cncidr-resolve", "dazn", "dmm", "ecommerce",
+                        "facebook", "forum", "googlefcm", "hbo", "hulu",
+                        "iplocation-direct", "iplocation-proxy", "line", "microsoft", "microsoft-cn",
+                        "mytvsuper", "niconico", "onedrive", "paypal", "primevideo",
+                        "socialmedia", "socialmedia-cn", "talkatone", "vk", "whatsapp"}
+
+          CLIENTS = {
+              "Egern": {"qdir": "egern", "ext": ".yaml", "bmdir": "rule/Surge"},
+              "Surge": {"qdir": "surge", "ext": ".list", "bmdir": "rule/Surge"},
+          }
+
+          for client, cfg in CLIENTS.items():
+              dest = os.path.join(NEW, client)
+              os.makedirs(dest, exist_ok=True)
+              ok = 0
+
+              # 1. QuixoticHeart ruleset
+              urls = gh_list("QuixoticHeart/rule-set", cfg["qdir"], "ruleset", cfg["ext"])
+              print(f"[{client}] QuixoticHeart: {len(urls)} files")
+              for url in urls:
+                  data = fetch(url)
+                  if not data:
+                      print(f"  FAIL {url}")
+                      continue
+                  fn = os.path.basename(url)
+                  stem = fn[:-len(cfg["ext"])]
+                  if stem.lower() == "google":
+                      continue  # Google rule comes from blackmatrix7
+                  if stem.lower() in SKIP_RULES:
+                      continue  # 2026-11-07: removed at the user's request
+                  fn = RENAME.get(stem.lower(), stem) + cfg["ext"]
+                  # Egern extra rules use .list (Surge-compatible)
+                  with open(os.path.join(dest, fn), "wb") as f:
+                      f.write(data)
+                  ok += 1
+
+              # 2. blackmatrix7 extras
+              for name in EXTRA:
+                  if name.lower() in SKIP_RULES:
+                      continue  # removed at the user's request
+                  ext = ".list"  # extras are always .list (Surge-compatible for Egern)
+                  url = (f"https://raw.githubusercontent.com/blackmatrix7/ios_rule_script"
+                         f"/master/{cfg['bmdir']}/{name}/{name}{ext}")
+                  data = fetch(url)
+                  if data:
+                      with open(os.path.join(dest, f"{name}{ext}"), "wb") as f:
+                          f.write(data)
+                      ok += 1
+                  else:
+                      print(f"  FAIL(extra) {name}")
+              # 2b. ByteDance: merge DouYin-unique rules (blackmatrix7's ByteDance.list
+              # misses snssdk.com etc.; DouYin.list has 3 rules not in ByteDance)
+              _bd_path = os.path.join(dest, "ByteDance.list")
+              if os.path.exists(_bd_path):
+                  _dy_url = (f"https://raw.githubusercontent.com/blackmatrix7/ios_rule_script"
+                             f"/master/{cfg['bmdir']}/DouYin/DouYin.list")
+                  _dy_data = fetch(_dy_url)
+                  if _dy_data:
+                      # Compare by domain, not whole line, so same-domain lines
+                      # with a different policy suffix are not counted as new rules.
+                      _RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
+                                     "IP-CIDR", "IP-CIDR6", "HOST", "HOST-SUFFIX",
+                                     "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
+                      def _rule_domain(line):
+                          s = line.strip()
+                          if not s or s.startswith("#"):
+                              return None
+                          parts = [p.strip() for p in s.split(",")]
+                          if len(parts) >= 2 and parts[0].upper() in _RULE_TYPES:
+                              return parts[1].lstrip(".").lower()
+                          return parts[0].lstrip(".").lower()
+                      _bd_domains = set()
+                      for _bl in open(_bd_path, encoding="utf-8", errors="ignore").read().splitlines():
+                          _d = _rule_domain(_bl)
+                          if _d:
+                              _bd_domains.add(_d)
+                      _added = []
+                      for _l in _dy_data.decode("utf-8", errors="ignore").splitlines():
+                          _l = _l.strip()
+                          _d = _rule_domain(_l)
+                          if _d and _d not in _bd_domains:
+                              _added.append(_l)
+                              _bd_domains.add(_d)
+                      if _added:
+                          with open(_bd_path, "a", encoding="utf-8") as _f:
+                              _f.write("\n" + "\n".join(_added) + "\n")
+                          print(f"  [ByteDance] merged {len(_added)} DouYin-unique rules")
+
+              # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
+              # Surge-format IP-ASN list, synced as ChinaASN.list into
+              # Surge and Egern only. Egern converts it to native .yaml in
+              # step 2e below. On fetch failure, keep the repo's old file
+              # (Egern prefers the old .yaml).
+              # 2026-11-07: every IP-ASN line gets ,no-resolve (missuo
+              # carries none; matches the Egern YAML no_resolve and
+              # bm7's ChinaASN).
+              if client in ("Surge", "Egern"):
+                  _asn_url = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
+                  _asn_data = fetch(_asn_url)
+                  if _asn_data:
+                      _asn_text = _asn_data.decode("utf-8", errors="ignore")
+                      _nr_lines = []
+                      for _ln in _asn_text.splitlines():
+                          _s = _ln.strip()
+                          if _s.startswith("IP-ASN,") and ",no-resolve" not in _s:
+                              if " //" in _s:
+                                  _h, _t = _s.split(" //", 1)
+                                  _nr_lines.append(_h + ",no-resolve //" + _t)
+                              else:
+                                  _nr_lines.append(_s + ",no-resolve")
+                          else:
+                              _nr_lines.append(_ln)
+                      _asn_data = ("\n".join(_nr_lines) + "\n").encode("utf-8")
+                      with open(os.path.join(dest, "ChinaASN.list"), "wb") as _f:
+                          _f.write(_asn_data)
+                      ok += 1
+                      print(f"  [ChinaASN] ok ({len(_asn_data)} bytes)")
+                  else:
+                      _old_yaml = os.path.join(client, "ChinaASN.yaml")
+                      if client == "Egern" and os.path.exists(_old_yaml):
+                          shutil.copy(_old_yaml, os.path.join(dest, "ChinaASN.yaml"))
+                          ok += 1
+                          print("  [ChinaASN] fetch failed, kept old version")
+                      else:
+                          _old_fp = os.path.join(client, "ChinaASN.list")
+                          if os.path.exists(_old_fp):
+                              shutil.copy(_old_fp, os.path.join(dest, "ChinaASN.list"))
+                              ok += 1
+                              print("  [ChinaASN] fetch failed, kept old version")
+                          else:
+                              print(f"  [ChinaASN] FAIL {_asn_url}")
+
+              # 2e. Egern: convert Surge .list extras + ChinaASN to native YAML
+              # (2026-11-07) The 16 blackmatrix7/missuo rules now ship as
+              # native Egern .yaml instead of Surge-compatible .list. Runs
+              # after 2b (ByteDance merge) and 2d (ChinaASN) so the merged
+              # content is converted, not the pre-merge file. The .list
+              # files are removed here, so the repo only ever holds .yaml
+              # for Egern.
+              if client == "Egern":
+                  for _name in EXTRA + ["ChinaASN"]:
+                      _lp = os.path.join(dest, "%s.list" % _name)
+                      if not os.path.exists(_lp):
+                          continue
+                      with open(_lp, encoding="utf-8", errors="ignore") as _f:
+                          _text = _f.read()
+                      _yaml_text, _stats = convert_list_to_egern_yaml(_text)
+                      with open(os.path.join(dest, "%s.yaml" % _name), "w", encoding="utf-8") as _f:
+                          _f.write(_yaml_text)
+                      os.remove(_lp)
+                      print("  [Egern YAML] %s.yaml: %s (dropped PROCESS-NAME: %d, skipped: %d)" % (
+                          _name, _stats["counts"], _stats["dropped"], len(_stats["skipped"])))
+
+              print(f"[{client}] done: {ok} files")
+          PYEOF
+
+      - name: Atomic publish to repo
+        run: |
+          set -e
+          rm -rf Egern Surge
+          cp -r /tmp/new/Egern Egern
+          cp -r /tmp/new/Surge Surge
+          echo "published: $(ls Egern | wc -l) egern, $(ls Surge | wc -l) surge"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: sync rules $(date -u +%Y-%m-%d)"
+            git push
+          fi
