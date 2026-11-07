@@ -206,22 +206,13 @@ jobs:
           }
 
           # Extra rules from blackmatrix7 (Google overrides QuixoticHeart's).
-          # 2026-11-07: Facebook/Whatsapp/Line/VK removed here (they are in
-          # SKIP_RULES, deleted at the user's request) instead of being
-          # listed and then skipped one by one in the loop below.
+          # 2026-11-07: Facebook/Whatsapp/Line/VK removed here (deleted
+          # at the user's request; the repo allowlist keeps them out)
+          # instead of being listed and then skipped in the loop below.
           EXTRA = ["HuYa", "Discord", "Instagram", "Telegram", "Twitter",
                    "NetEaseMusic", "GitHub", "Reddit", "Pixiv",
                    "Google", "ByteDance"]
           EXTRA_NAMES = set(EXTRA)
-
-          # Rules removed at the user's request (2026-11-07):
-          # not synced, not kept in the repo.
-          # "gits" removed 2026-10-18 (user: use the GitHub rule instead).
-          SKIP_RULES = {"abema", "bahamut", "cncidr-resolve", "dazn", "dmm", "ecommerce",
-                        "facebook", "forum", "gits", "googlefcm", "hbo", "hulu",
-                        "iplocation-direct", "iplocation-proxy", "line", "microsoft", "microsoft-cn",
-                        "mytvsuper", "niconico", "onedrive", "paypal", "primevideo",
-                        "socialmedia", "socialmedia-cn", "talkatone", "vk", "whatsapp"}
 
           CLIENTS = {
               "Loon": {"qdir": "loon", "ext": ".list", "bmdir": "rule/Loon"},
@@ -236,6 +227,17 @@ jobs:
               os.makedirs(dest, exist_ok=True)
               ok = 0
 
+              # 2026-11-07: the repo itself is the allowlist. Only rules
+              # already in the repo are synced; new upstream rules never
+              # auto-appear (user: the repo holds only rules they use).
+              # Deleted rules can never come back, so no SKIP list is needed.
+              _repo_urls = gh_list("hinokka/rules", client, "rules", cfg["ext"])
+              _repo_stems = set()
+              for _u in _repo_urls:
+                  _fn = os.path.basename(_u)
+                  _repo_stems.add(_fn[:-len(cfg["ext"])])
+              print(f"[{client}] repo allowlist: {len(_repo_stems)} files")
+
               # 1. QuixoticHeart ruleset
               urls = gh_list("QuixoticHeart/rule-set", cfg["qdir"], "ruleset", cfg["ext"])
               print(f"[{client}] QuixoticHeart: {len(urls)} files")
@@ -248,15 +250,16 @@ jobs:
                   stem = fn[:-len(cfg["ext"])]
                   if stem.lower() == "google":
                       continue  # Google rule comes from blackmatrix7
-                  if stem.lower() in SKIP_RULES:
-                      continue  # 2026-11-07: removed at the user's request
                   if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules", "tld-proxy"):
                       continue  # 2026-10-31: Clash CN/CNCIDR/Proxy/AdRules served as mrs only, classical .list no longer synced; 2026-11-07: TLD-Proxy also moved to mrs
+                  _norm = RENAME.get(stem.lower(), stem)
+                  if _norm not in _repo_stems:
+                      continue  # not in the repo: new upstream rule, user does not want it
                   data = fetch(url)
                   if not data:
                       print(f"  FAIL {url}")
                       continue
-                  fn = RENAME.get(stem.lower(), stem) + cfg["ext"]
+                  fn = _norm + cfg["ext"]
                   # Egern extra rules use .list (Surge-compatible)
                   with open(os.path.join(dest, fn), "wb") as f:
                       f.write(strip_leading_hash_comments(data))
@@ -264,6 +267,8 @@ jobs:
 
               # 2. blackmatrix7 extras
               for name in EXTRA:
+                  if name not in _repo_stems:
+                      continue  # not in the repo, do not re-add
                   ext = ".list"  # extras are always .list (Surge-compatible for Egern)
                   url = (f"https://raw.githubusercontent.com/blackmatrix7/ios_rule_script"
                          f"/master/{cfg['bmdir']}/{name}/{name}{ext}")
@@ -335,7 +340,8 @@ jobs:
               # QuixoticHeart's gits rule has them (76 rules, a superset of
               # GitHub). Merge the GitHub-related ones (skip GitLab/Gitee/
               # GitBook/Gitter) so the GitHub rule stays complete. The Git
-              # rule itself is NOT kept (removed 2026-10-18, SKIP_RULES).
+              # rule itself is NOT kept (removed 2026-10-18; the repo
+              # allowlist keeps it out).
               _gh_path = os.path.join(dest, "GitHub.list")
               if os.path.exists(_gh_path):
                   # 2026-11-07: fetch each client's own gits (QuixoticHeart
@@ -410,7 +416,7 @@ jobs:
               # bm7's ChinaASN). 2026-11-07: QuantumultX does NOT get
               # no-resolve (QX does not support it). 2026-11-07: strip
               # all missuo // comments (header lines + trailing org names).
-              if client in ("Surge", "Egern", "Loon", "QuantumultX"):
+              if client in ("Surge", "Egern", "Loon", "QuantumultX") and "ChinaASN" in _repo_stems:
                   _asn_url = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
                   _asn_data = fetch(_asn_url)
                   if _asn_data:
@@ -489,6 +495,8 @@ jobs:
                       "TLD-Proxy.mrs": "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/tld-proxy.mrs",
                   }
                   for _fn, _url in _mrs_map.items():
+                      if _fn[:-4] not in _repo_stems:
+                          continue  # not in the repo, do not re-add
                       _data = fetch(_url)
                       if _data:
                           with open(os.path.join(dest, _fn), "wb") as _f:
