@@ -180,8 +180,10 @@ jobs:
               return "\n".join(out) + "\n", stats
 
           _RULE_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
-                         "IP-CIDR", "IP-CIDR6", "HOST", "HOST-SUFFIX",
-                         "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT", "GEOIP"}
+                         "DOMAIN-WILDCARD", "DOMAIN-REGEX", "IP-CIDR",
+                         "IP-CIDR6", "IP-ASN", "HOST", "HOST-SUFFIX",
+                         "HOST-KEYWORD", "HOST-WILDCARD", "USER-AGENT",
+                         "GEOIP", "PROCESS-NAME", "URL-REGEX"}
 
           def rule_domain(line):
 
