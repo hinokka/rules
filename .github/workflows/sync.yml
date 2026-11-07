@@ -175,6 +175,14 @@ jobs:
                        "dropped": len(dropped), "skipped": skipped}
               return "\n".join(out) + "\n", stats
 
+          def sort_rule_file(path, order_map):
+              """Sort a .list rule file by rule type (specific rules first)
+              and drop blank lines. Used by the 2b/2c merges."""
+              _lines = [l for l in open(path, encoding="utf-8").read().splitlines() if l.strip()]
+              _lines.sort(key=lambda l: order_map.get(l.split(",", 1)[0].strip().upper(), 99))
+              with open(path, "w", encoding="utf-8") as _f:
+                  _f.write("\n".join(_lines) + "\n")
+
           # Filename normalization (QuixoticHeart -> blackmatrix7 conventions)
           RENAME = {
               "adrules": "AdRules", "ai": "AI", "apns": "APNs",
@@ -184,7 +192,7 @@ jobs:
               "cncidr": "CNCIDR", "crypto": "Crypto", 
               "disney": "Disney", "dmca": "DMCA", "douyin": "DouYin",
               "games-cn": "Games-CN",
-              "games": "Games", "gfw": "GFW", "gits": "Git", "google": "Google",
+              "games": "Games", "gfw": "GFW", "google": "Google",
               "httpdns": "HttpDNS",
 
 
@@ -197,10 +205,13 @@ jobs:
               "youtube": "YouTube",
           }
 
-          # Extra rules from blackmatrix7 (Google overrides QuixoticHeart's)
+          # Extra rules from blackmatrix7 (Google overrides QuixoticHeart's).
+          # 2026-11-07: Facebook/Whatsapp/Line/VK removed here (they are in
+          # SKIP_RULES, deleted at the user's request) instead of being
+          # listed and then skipped one by one in the loop below.
           EXTRA = ["HuYa", "Discord", "Instagram", "Telegram", "Twitter",
-                   "NetEaseMusic", "GitHub", "Facebook", "Whatsapp",
-                   "Reddit", "Pixiv", "Line", "VK", "Google", "ByteDance"]
+                   "NetEaseMusic", "GitHub", "Reddit", "Pixiv",
+                   "Google", "ByteDance"]
           EXTRA_NAMES = set(EXTRA)
 
           # Rules removed at the user's request (2026-11-07):
@@ -249,8 +260,6 @@ jobs:
 
               # 2. blackmatrix7 extras
               for name in EXTRA:
-                  if name.lower() in SKIP_RULES:
-                      continue  # removed at the user's request
                   ext = ".list"  # extras are always .list (Surge-compatible for Egern)
                   url = (f"https://raw.githubusercontent.com/blackmatrix7/ios_rule_script"
                          f"/master/{cfg['bmdir']}/{name}/{name}{ext}")
@@ -311,10 +320,7 @@ jobs:
                                    "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3,
                                    "IP-CIDR": 4, "IP-CIDR6": 4, "GEOIP": 4,
                                    "USER-AGENT": 5, "PROCESS-NAME": 6}
-                      _bd_all = [l for l in open(_bd_path, encoding="utf-8").read().splitlines() if l.strip()]
-                      _bd_all.sort(key=lambda l: _BD_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
-                      with open(_bd_path, "w", encoding="utf-8") as _f:
-                          _f.write("\n".join(_bd_all) + "\n")
+                      sort_rule_file(_bd_path, _BD_ORDER)
 
               # 2c. GitHub: merge GitHub-related domains from QuixoticHeart gits
               # (2026-11-07) blackmatrix7's GitHub.list (31 rules) is missing
@@ -388,10 +394,7 @@ jobs:
                                      "DOMAIN-SUFFIX": 1, "HOST-SUFFIX": 1,
                                      "DOMAIN-KEYWORD": 2, "HOST-KEYWORD": 2,
                                      "DOMAIN-WILDCARD": 3, "HOST-WILDCARD": 3}
-                      _all = [l for l in open(_gh_path, encoding="utf-8").read().splitlines() if l.strip()]
-                      _all.sort(key=lambda l: _TYPE_ORDER.get(l.split(",", 1)[0].strip().upper(), 99))
-                      with open(_gh_path, "w", encoding="utf-8") as _f:
-                          _f.write("\n".join(_all) + "\n")
+                      sort_rule_file(_gh_path, _TYPE_ORDER)
 
               # 2d. ChinaASN from missuo/ASN-China (2026-11-01)
               # Surge-format IP-ASN list, synced as ChinaASN.list into
