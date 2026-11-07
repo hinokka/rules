@@ -1,5 +1,7 @@
 # rules
 
+https://hub.hin0ka.com
+
 ## Acknowledgements
 
 - https://github.com/QuixoticHeart/rule-set
