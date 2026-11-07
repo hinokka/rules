@@ -232,10 +232,16 @@ jobs:
               # auto-appear (user: the repo holds only rules they use).
               # Deleted rules can never come back, so no SKIP list is needed.
               _repo_urls = gh_list("hinokka/rules", client, "rules", cfg["ext"])
+              # NOTE: Clash also has .mrs files, so strip the extension with
+              # splitext instead of slicing by len(cfg["ext"]) ("CN.mrs"[:-5]
+              # is "C", which broke the 2f allowlist and dropped all 7 .mrs).
+              # gh_list filters by ext, so list .mrs separately for Clash.
+              if client == "Clash":
+                  _repo_urls += gh_list("hinokka/rules", client, "rules", ".mrs")
               _repo_stems = set()
               for _u in _repo_urls:
                   _fn = os.path.basename(_u)
-                  _repo_stems.add(_fn[:-len(cfg["ext"])])
+                  _repo_stems.add(os.path.splitext(_fn)[0])
               print(f"[{client}] repo allowlist: {len(_repo_stems)} files")
 
               # 1. QuixoticHeart ruleset
