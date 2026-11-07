@@ -185,8 +185,9 @@ jobs:
 
           # Rules removed at the user's request (2026-11-07):
           # not synced, not kept in the repo.
+          # "gits" removed 2026-10-18 (user: use the GitHub rule instead).
           SKIP_RULES = {"abema", "bahamut", "cncidr-resolve", "dazn", "dmm", "ecommerce",
-                        "facebook", "forum", "googlefcm", "hbo", "hulu",
+                        "facebook", "forum", "gits", "googlefcm", "hbo", "hulu",
                         "iplocation-direct", "iplocation-proxy", "line", "microsoft", "microsoft-cn",
                         "mytvsuper", "niconico", "onedrive", "paypal", "primevideo",
                         "socialmedia", "socialmedia-cn", "talkatone", "vk", "whatsapp"}
