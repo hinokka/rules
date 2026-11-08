@@ -2179,6 +2179,7 @@ HOST,ookla3.1und1-mobilfunk.de,speedtest
 HOST,ooklahost.aquafon.com,speedtest
 HOST,ooklapub1.o-net.ca,speedtest
 HOST,ooklaserver.aryk.fr,speedtest
+HOST,ooklaserver.asbn.va.ogital.net,speedtest
 HOST,ooklaserver.dlls.tx.ogital.net,speedtest
 HOST,ooklaserver1-del1.skymaxbroadband.com,speedtest
 HOST,ooklaspdtstsvr.zitel.com,speedtest
@@ -5079,6 +5080,7 @@ HOST,speedtest-ookla-par.as62000.net,speedtest
 HOST,speedtest-ookla-roc1.synoptek.com,speedtest
 HOST,speedtest-ottawa.hivedatacenter.com,speedtest
 HOST,speedtest-p1.interphone.com.au,speedtest
+HOST,speedtest-par.flowhardware.ch,speedtest
 HOST,speedtest-pd.flynet.it,speedtest
 HOST,speedtest-pd.wifiweb.it,speedtest
 HOST,speedtest-perth.launtel.net.au,speedtest
@@ -8658,6 +8660,7 @@ HOST,velocidade.csrnetwork.com.br,speedtest
 HOST,velocidade.ctbc.com.br,speedtest
 HOST,velocidade.cybernet.net.br,speedtest
 HOST,velocidade.d1telecom.com.br,speedtest
+HOST,velocidade.danieltechpro.com,speedtest
 HOST,velocidade.deltatele.com.br,speedtest
 HOST,velocidade.desbravadora.net.br,speedtest
 HOST,velocidade.dgnetsp.com.br,speedtest

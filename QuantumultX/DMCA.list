@@ -12,6 +12,7 @@ HOST,academic-p2p.appspot.com,dmca
 HOST,aegir.sexy,dmca
 HOST,alltorrents.net,dmca
 HOST,announce.partis.si,dmca
+HOST,archive.torrentonline.cc,dmca
 HOST,banananetwork.qzz.io,dmca
 HOST,bandito.byterunner.io,dmca
 HOST,big-boss-tracker.net,dmca
@@ -256,7 +257,6 @@ HOST-SUFFIX,ankeschwarz.net,dmca
 HOST-SUFFIX,announce.torrentsmd.com.php,dmca
 HOST-SUFFIX,anthelion.me,dmca
 HOST-SUFFIX,api.bitumconference.ru,dmca
-HOST-SUFFIX,archive.torrentonline.cc,dmca
 HOST-SUFFIX,aruacfilmes.com.br,dmca
 HOST-SUFFIX,asiancinema.me,dmca
 HOST-SUFFIX,asnet.pw,dmca
@@ -498,6 +498,7 @@ HOST-SUFFIX,ipv4.tracker.harry.lu,dmca
 HOST-SUFFIX,ipv4announce.sktorrent.eu,dmca
 HOST-SUFFIX,ipv6-publictracker.zooki.xyz,dmca
 HOST-SUFFIX,ipv6.54new.com,dmca
+HOST-SUFFIX,ipv6.govt.hu,dmca
 HOST-SUFFIX,ipv6.open-internet.nl,dmca
 HOST-SUFFIX,ipv6.tracker.harry.lu,dmca
 HOST-SUFFIX,irrenhaus.dyndns.dk.php,dmca
@@ -812,7 +813,6 @@ HOST-SUFFIX,tr.steins-gate.moe,dmca
 HOST-SUFFIX,tr.torland.ga,dmca
 HOST-SUFFIX,tr.zhina.org,dmca
 HOST-SUFFIX,tr2.ysagin.top,dmca
-HOST-SUFFIX,tr3.ysagin.top,dmca
 HOST-SUFFIX,tr4ck3r.duckdns.org,dmca
 HOST-SUFFIX,tracker-2.msm8916.com,dmca
 HOST-SUFFIX,tracker-de.ololosh.space,dmca
@@ -860,6 +860,7 @@ HOST-SUFFIX,tracker.btsync.tk,dmca
 HOST-SUFFIX,tracker.btzoo.eu,dmca
 HOST-SUFFIX,tracker.bz,dmca
 HOST-SUFFIX,tracker.calculate.ru,dmca
+HOST-SUFFIX,tracker.cangku.moe,dmca
 HOST-SUFFIX,tracker.ccc.de,dmca
 HOST-SUFFIX,tracker.christianbro.pw,dmca
 HOST-SUFFIX,tracker.city9x.com,dmca

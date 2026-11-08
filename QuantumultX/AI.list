@@ -29,9 +29,11 @@ HOST,geminiweb-pa.clients.google.com,ai
 HOST,geminiweb-pa.clients6.google.com,ai
 HOST,gspe1-ssl.ls.apple.com,ai
 HOST,guzzoni.apple.com,ai
+HOST,http-intake.logs.us5.datadoghq.com,ai
 HOST,imagine.meta.com,ai
 HOST,notebooklm-pa.googleapis.com,ai
 HOST,notebooklm.googleapis.com,ai
+HOST,o1158394.ingest.us.sentry.io,ai
 HOST,o33249.ingest.sentry.io,ai
 HOST,o33249.ingest.us.sentry.io,ai
 HOST,openai.qualtrics.com,ai
@@ -41,6 +43,7 @@ HOST,openaicom.imgix.net,ai
 HOST,openaicomproductionae4b.blob.core.windows.net,ai
 HOST,ppl-ai-file-upload.s3.amazonaws.com,ai
 HOST,pplx-res.cloudinary.com,ai
+HOST,production-copilot-host-westus.webpubsub.azure.com,ai
 HOST,production-openaicom-storage.azureedge.net,ai
 HOST,servd-anthropic-website.b-cdn.net,ai
 HOST,sydney.bing.com,ai
@@ -151,6 +154,7 @@ HOST-SUFFIX,grazie.ai,ai
 HOST-SUFFIX,grazie.aws.intellij.net,ai
 HOST-SUFFIX,grok.com,ai
 HOST-SUFFIX,grok.x.com,ai
+HOST-SUFFIX,grokbot.com,ai
 HOST-SUFFIX,grokipedia.com,ai
 HOST-SUFFIX,groq.com,ai
 HOST-SUFFIX,h2o.ai,ai

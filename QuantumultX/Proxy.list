@@ -39,6 +39,7 @@ HOST,gog.qtlglb.com,proxy
 HOST,hb4bbbbb.pmhcjk.com,proxy
 HOST,holoxx.f5.si,proxy
 HOST,hpstore.corpmerchandise.com,proxy
+HOST,http-intake.logs.us5.datadoghq.com,proxy
 HOST,hub.slarker.me,proxy
 HOST,i.jeded.com,proxy
 HOST,imperial.insendi.com,proxy
@@ -67,6 +68,7 @@ HOST,ntp7.ntp-servers.net,proxy
 HOST,ntppool1.time.nl,proxy
 HOST,ntppool2.time.nl,proxy
 HOST,nvidia.tt.omtrdc.net,proxy
+HOST,o1158394.ingest.us.sentry.io,proxy
 HOST,ood.opsource.net,proxy
 HOST,practivate.adobe,proxy
 HOST,practivate.adobe.ipp,proxy
@@ -11859,6 +11861,7 @@ HOST-SUFFIX,grep.app,proxy
 HOST-SUFFIX,gridaware.app,proxy
 HOST-SUFFIX,grindr.com,proxy
 HOST-SUFFIX,grok.com,proxy
+HOST-SUFFIX,grokbot.com,proxy
 HOST-SUFFIX,grokipedia.com,proxy
 HOST-SUFFIX,grooby.com,proxy
 HOST-SUFFIX,groq.com,proxy

@@ -41,6 +41,7 @@ domain_set:
 - hb4bbbbb.pmhcjk.com
 - holoxx.f5.si
 - hpstore.corpmerchandise.com
+- http-intake.logs.us5.datadoghq.com
 - hub.slarker.me
 - i.jeded.com
 - imperial.insendi.com
@@ -69,6 +70,7 @@ domain_set:
 - ntppool1.time.nl
 - ntppool2.time.nl
 - nvidia.tt.omtrdc.net
+- o1158394.ingest.us.sentry.io
 - ood.opsource.net
 - practivate.adobe
 - practivate.adobe.ipp
@@ -11862,6 +11864,7 @@ domain_suffix_set:
 - gridaware.app
 - grindr.com
 - grok.com
+- grokbot.com
 - grokipedia.com
 - grooby.com
 - groq.com

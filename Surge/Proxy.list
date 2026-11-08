@@ -39,6 +39,7 @@ DOMAIN,gog.qtlglb.com
 DOMAIN,hb4bbbbb.pmhcjk.com
 DOMAIN,holoxx.f5.si
 DOMAIN,hpstore.corpmerchandise.com
+DOMAIN,http-intake.logs.us5.datadoghq.com
 DOMAIN,hub.slarker.me
 DOMAIN,i.jeded.com
 DOMAIN,imperial.insendi.com
@@ -67,6 +68,7 @@ DOMAIN,ntp7.ntp-servers.net
 DOMAIN,ntppool1.time.nl
 DOMAIN,ntppool2.time.nl
 DOMAIN,nvidia.tt.omtrdc.net
+DOMAIN,o1158394.ingest.us.sentry.io
 DOMAIN,ood.opsource.net
 DOMAIN,practivate.adobe
 DOMAIN,practivate.adobe.ipp
@@ -11859,6 +11861,7 @@ DOMAIN-SUFFIX,grep.app
 DOMAIN-SUFFIX,gridaware.app
 DOMAIN-SUFFIX,grindr.com
 DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,grokbot.com
 DOMAIN-SUFFIX,grokipedia.com
 DOMAIN-SUFFIX,grooby.com
 DOMAIN-SUFFIX,groq.com
