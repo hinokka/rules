@@ -14,7 +14,6 @@ domain_set:
 - aegir.sexy
 - alltorrents.net
 - announce.partis.si
-- archive.torrentonline.cc
 - banananetwork.qzz.io
 - bandito.byterunner.io
 - big-boss-tracker.net
@@ -125,6 +124,8 @@ domain_set:
 - tracker.expli.top
 - tracker.fansub.id
 - tracker.fatkhoala.org
+- tracker.flatuslifir.is
+- tracker.fnix.net
 - tracker.frozen-layer.com
 - tracker.gcrenwp.top
 - tracker.gcrreen.xyz
@@ -172,6 +173,7 @@ domain_set:
 - tracker.torrust-demo.com
 - tracker.trancetraffic.com
 - tracker.tritan.gg
+- tracker.tryhackx.org
 - tracker.uraniumhexafluori.de
 - tracker.vraphim.com
 - tracker.xfapi.top
@@ -260,6 +262,7 @@ domain_suffix_set:
 - announce.torrentsmd.com.php
 - anthelion.me
 - api.bitumconference.ru
+- archive.torrentonline.cc
 - aruacfilmes.com.br
 - asiancinema.me
 - asnet.pw
@@ -802,6 +805,7 @@ domain_suffix_set:
 - totheglory.im
 - tp.m-team.cc.php
 - tr.abiir.top
+- tr.abir.ga
 - tr.back.re
 - tr.bangumi.moe
 - tr.burnabyhighstar.com
@@ -816,6 +820,7 @@ domain_suffix_set:
 - tr.torland.ga
 - tr.zhina.org
 - tr2.ysagin.top
+- tr3.ysagin.top
 - tr4ck3r.duckdns.org
 - tracker-2.msm8916.com
 - tracker-de.ololosh.space
@@ -836,6 +841,7 @@ domain_suffix_set:
 - tracker.anonwebz.xyz
 - tracker.army
 - tracker.aruku.ovh
+- tracker.augrains.com
 - tracker.baka-sub.cf
 - tracker.baltracker.net
 - tracker.baravik.org
@@ -903,8 +909,6 @@ domain_suffix_set:
 - tracker.filetracker.pl
 - tracker.fixr.pro
 - tracker.flashtorrents.org
-- tracker.flatuslifir.is
-- tracker.fnix.net
 - tracker.foreverpirates.co
 - tracker.fortu.io
 - tracker.freddit.nl
@@ -948,7 +952,6 @@ domain_suffix_set:
 - tracker.marshyonline.net
 - tracker.martlet.tk
 - tracker.mg64.net
-- tracker.midnightprogrammer.net
 - tracker.minglong.org
 - tracker.moeking.me
 - tracker.monitorit4.me
@@ -1038,7 +1041,6 @@ domain_suffix_set:
 - tracker.trackton.ga
 - tracker.transfur.org
 - tracker.tricitytorrents.com
-- tracker.tryhackx.org
 - tracker.tvunderground.org.ru
 - tracker.uw0.xyz
 - tracker.v6speed.org
