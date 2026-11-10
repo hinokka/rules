@@ -6241,6 +6241,7 @@ HOST,speedtest.vanciscloud.nl,speedtest
 HOST,speedtest.vc.shawcable.net,speedtest
 HOST,speedtest.vdns.it,speedtest
 HOST,speedtest.vee.com.tw,speedtest
+HOST,speedtest.vel.as205941.net,speedtest
 HOST,speedtest.velocitybroadband.co.in,speedtest
 HOST,speedtest.velosonet.com.br,speedtest
 HOST,speedtest.verimek.com,speedtest
@@ -6272,6 +6273,7 @@ HOST,speedtest.war.fdcservers.net,speedtest
 HOST,speedtest.warsaw.valtrix.org,speedtest
 HOST,speedtest.waterloofiber.com,speedtest
 HOST,speedtest.waveruralconnect.com,speedtest
+HOST,speedtest.way2netbroadband.com,speedtest
 HOST,speedtest.wb1.loopinternet.com,speedtest
 HOST,speedtest.wccta.com,speedtest
 HOST,speedtest.webdiscount.net,speedtest
@@ -9231,6 +9233,7 @@ HOST-SUFFIX,liveinternetspeed.com,speedtest
 HOST-SUFFIX,measurement-lab.org,speedtest
 HOST-SUFFIX,measurementlab.net,speedtest
 HOST-SUFFIX,medidor-de-velocidad.movistar.com.ar,speedtest
+HOST-SUFFIX,megabitus.com,speedtest
 HOST-SUFFIX,meter.net,speedtest
 HOST-SUFFIX,metercustom.net,speedtest
 HOST-SUFFIX,minhaconexao.com.br,speedtest

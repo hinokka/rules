@@ -13,6 +13,7 @@ domain_set:
 - academic-p2p.appspot.com
 - aegir.sexy
 - alltorrents.net
+- anime-tracker.aruku.kro.kr
 - announce.partis.si
 - banananetwork.qzz.io
 - bandito.byterunner.io
@@ -124,8 +125,6 @@ domain_set:
 - tracker.expli.top
 - tracker.fansub.id
 - tracker.fatkhoala.org
-- tracker.flatuslifir.is
-- tracker.fnix.net
 - tracker.frozen-layer.com
 - tracker.gcrenwp.top
 - tracker.gcrreen.xyz
@@ -195,6 +194,7 @@ domain_set:
 - v6.vito-tracker.space
 - wepzone.net
 - wg.mortis.me
+- whybother.torrentonline.cc
 - ws.peer.ooo
 - xbtrutor.com
 - xtremewrestlingtorrents.net
@@ -253,7 +253,6 @@ domain_suffix_set:
 - alpharatio.cc
 - amigacity.xyz
 - anidex.moe
-- anime-tracker.aruku.kro.kr
 - animebytes.tv
 - animetorrents.me
 - anisaishuu.de
@@ -805,7 +804,6 @@ domain_suffix_set:
 - totheglory.im
 - tp.m-team.cc.php
 - tr.abiir.top
-- tr.abir.ga
 - tr.back.re
 - tr.bangumi.moe
 - tr.burnabyhighstar.com
@@ -836,12 +834,12 @@ domain_suffix_set:
 - tracker.acgsou.com
 - tracker.aletorrenty.pl
 - tracker.ali213.net
+- tracker.alt.cx
 - tracker.altrosky.nl
 - tracker.anime-miako.to
 - tracker.anonwebz.xyz
 - tracker.army
 - tracker.aruku.ovh
-- tracker.augrains.com
 - tracker.baka-sub.cf
 - tracker.baltracker.net
 - tracker.baravik.org
@@ -909,6 +907,8 @@ domain_suffix_set:
 - tracker.filetracker.pl
 - tracker.fixr.pro
 - tracker.flashtorrents.org
+- tracker.flatuslifir.is
+- tracker.fnix.net
 - tracker.foreverpirates.co
 - tracker.fortu.io
 - tracker.freddit.nl
@@ -1136,7 +1136,6 @@ domain_suffix_set:
 - wassermann.online
 - web4.obit.ru
 - wegkxfcivgx.chickenkiller.com
-- whybother.torrentonline.cc
 - wintersakura.net
 - worldboxingvideoarchive.com
 - xauat6.edu.cn
