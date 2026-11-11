@@ -15,6 +15,7 @@ domain_set:
 - alltorrents.net
 - anime-tracker.aruku.kro.kr
 - announce.partis.si
+- archive.torrentonline.cc
 - banananetwork.qzz.io
 - bandito.byterunner.io
 - big-boss-tracker.net
@@ -102,7 +103,6 @@ domain_set:
 - tracker-zhuqiy.dgj055.icu
 - tracker.0x7c0.com
 - tracker.1h.is
-- tracker.23794.top
 - tracker.alaskantf.com
 - tracker.anima.nz
 - tracker.anirena.com
@@ -172,7 +172,6 @@ domain_set:
 - tracker.torrust-demo.com
 - tracker.trancetraffic.com
 - tracker.tritan.gg
-- tracker.tryhackx.org
 - tracker.uraniumhexafluori.de
 - tracker.vraphim.com
 - tracker.xfapi.top
@@ -194,7 +193,6 @@ domain_set:
 - v6.vito-tracker.space
 - wepzone.net
 - wg.mortis.me
-- whybother.torrentonline.cc
 - ws.peer.ooo
 - xbtrutor.com
 - xtremewrestlingtorrents.net
@@ -261,7 +259,6 @@ domain_suffix_set:
 - announce.torrentsmd.com.php
 - anthelion.me
 - api.bitumconference.ru
-- archive.torrentonline.cc
 - aruacfilmes.com.br
 - asiancinema.me
 - asnet.pw
@@ -804,6 +801,7 @@ domain_suffix_set:
 - totheglory.im
 - tp.m-team.cc.php
 - tr.abiir.top
+- tr.abir.ga
 - tr.back.re
 - tr.bangumi.moe
 - tr.burnabyhighstar.com
@@ -818,7 +816,6 @@ domain_suffix_set:
 - tr.torland.ga
 - tr.zhina.org
 - tr2.ysagin.top
-- tr3.ysagin.top
 - tr4ck3r.duckdns.org
 - tracker-2.msm8916.com
 - tracker-de.ololosh.space
@@ -827,6 +824,7 @@ domain_suffix_set:
 - tracker.0o.is
 - tracker.0x.tf
 - tracker.1337x.org
+- tracker.23794.top
 - tracker.36dm.com
 - tracker.7471.top
 - tracker.acg.gg
@@ -840,6 +838,7 @@ domain_suffix_set:
 - tracker.anonwebz.xyz
 - tracker.army
 - tracker.aruku.ovh
+- tracker.augrains.com
 - tracker.baka-sub.cf
 - tracker.baltracker.net
 - tracker.baravik.org
@@ -867,7 +866,6 @@ domain_suffix_set:
 - tracker.btzoo.eu
 - tracker.bz
 - tracker.calculate.ru
-- tracker.cangku.moe
 - tracker.ccc.de
 - tracker.christianbro.pw
 - tracker.city9x.com
@@ -1041,6 +1039,7 @@ domain_suffix_set:
 - tracker.trackton.ga
 - tracker.transfur.org
 - tracker.tricitytorrents.com
+- tracker.tryhackx.org
 - tracker.tvunderground.org.ru
 - tracker.uw0.xyz
 - tracker.v6speed.org
@@ -1136,6 +1135,7 @@ domain_suffix_set:
 - wassermann.online
 - web4.obit.ru
 - wegkxfcivgx.chickenkiller.com
+- whybother.torrentonline.cc
 - wintersakura.net
 - worldboxingvideoarchive.com
 - xauat6.edu.cn
