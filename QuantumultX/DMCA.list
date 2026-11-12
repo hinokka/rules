@@ -13,7 +13,6 @@ HOST,aegir.sexy,dmca
 HOST,alltorrents.net,dmca
 HOST,anime-tracker.aruku.kro.kr,dmca
 HOST,announce.partis.si,dmca
-HOST,archive.torrentonline.cc,dmca
 HOST,banananetwork.qzz.io,dmca
 HOST,bandito.byterunner.io,dmca
 HOST,big-boss-tracker.net,dmca
@@ -253,9 +252,11 @@ HOST-SUFFIX,animetorrents.me,dmca
 HOST-SUFFIX,anisaishuu.de,dmca
 HOST-SUFFIX,anisource.spb.ru,dmca
 HOST-SUFFIX,ankeschwarz.net,dmca
+HOST-SUFFIX,announce.augrains.com,dmca
 HOST-SUFFIX,announce.torrentsmd.com.php,dmca
 HOST-SUFFIX,anthelion.me,dmca
 HOST-SUFFIX,api.bitumconference.ru,dmca
+HOST-SUFFIX,archive.torrentonline.cc,dmca
 HOST-SUFFIX,aruacfilmes.com.br,dmca
 HOST-SUFFIX,asiancinema.me,dmca
 HOST-SUFFIX,asnet.pw,dmca
@@ -813,6 +814,7 @@ HOST-SUFFIX,tr.steins-gate.moe,dmca
 HOST-SUFFIX,tr.torland.ga,dmca
 HOST-SUFFIX,tr.zhina.org,dmca
 HOST-SUFFIX,tr2.ysagin.top,dmca
+HOST-SUFFIX,tr3.ysagin.top,dmca
 HOST-SUFFIX,tr4ck3r.duckdns.org,dmca
 HOST-SUFFIX,tracker-2.msm8916.com,dmca
 HOST-SUFFIX,tracker-de.ololosh.space,dmca

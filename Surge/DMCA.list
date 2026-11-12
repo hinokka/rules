@@ -13,7 +13,6 @@ DOMAIN,aegir.sexy
 DOMAIN,alltorrents.net
 DOMAIN,anime-tracker.aruku.kro.kr
 DOMAIN,announce.partis.si
-DOMAIN,archive.torrentonline.cc
 DOMAIN,banananetwork.qzz.io
 DOMAIN,bandito.byterunner.io
 DOMAIN,big-boss-tracker.net
@@ -253,9 +252,11 @@ DOMAIN-SUFFIX,animetorrents.me
 DOMAIN-SUFFIX,anisaishuu.de
 DOMAIN-SUFFIX,anisource.spb.ru
 DOMAIN-SUFFIX,ankeschwarz.net
+DOMAIN-SUFFIX,announce.augrains.com
 DOMAIN-SUFFIX,announce.torrentsmd.com.php
 DOMAIN-SUFFIX,anthelion.me
 DOMAIN-SUFFIX,api.bitumconference.ru
+DOMAIN-SUFFIX,archive.torrentonline.cc
 DOMAIN-SUFFIX,aruacfilmes.com.br
 DOMAIN-SUFFIX,asiancinema.me
 DOMAIN-SUFFIX,asnet.pw
@@ -813,6 +814,7 @@ DOMAIN-SUFFIX,tr.steins-gate.moe
 DOMAIN-SUFFIX,tr.torland.ga
 DOMAIN-SUFFIX,tr.zhina.org
 DOMAIN-SUFFIX,tr2.ysagin.top
+DOMAIN-SUFFIX,tr3.ysagin.top
 DOMAIN-SUFFIX,tr4ck3r.duckdns.org
 DOMAIN-SUFFIX,tracker-2.msm8916.com
 DOMAIN-SUFFIX,tracker-de.ololosh.space

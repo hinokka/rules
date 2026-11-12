@@ -15,7 +15,6 @@ domain_set:
 - alltorrents.net
 - anime-tracker.aruku.kro.kr
 - announce.partis.si
-- archive.torrentonline.cc
 - banananetwork.qzz.io
 - bandito.byterunner.io
 - big-boss-tracker.net
@@ -256,9 +255,11 @@ domain_suffix_set:
 - anisaishuu.de
 - anisource.spb.ru
 - ankeschwarz.net
+- announce.augrains.com
 - announce.torrentsmd.com.php
 - anthelion.me
 - api.bitumconference.ru
+- archive.torrentonline.cc
 - aruacfilmes.com.br
 - asiancinema.me
 - asnet.pw
@@ -816,6 +817,7 @@ domain_suffix_set:
 - tr.torland.ga
 - tr.zhina.org
 - tr2.ysagin.top
+- tr3.ysagin.top
 - tr4ck3r.duckdns.org
 - tracker-2.msm8916.com
 - tracker-de.ololosh.space
