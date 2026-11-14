@@ -13,6 +13,7 @@ DOMAIN,aegir.sexy
 DOMAIN,alltorrents.net
 DOMAIN,anime-tracker.aruku.kro.kr
 DOMAIN,announce.partis.si
+DOMAIN,archive.torrentonline.cc
 DOMAIN,banananetwork.qzz.io
 DOMAIN,bandito.byterunner.io
 DOMAIN,big-boss-tracker.net
@@ -257,7 +258,6 @@ DOMAIN-SUFFIX,announce.augrains.com
 DOMAIN-SUFFIX,announce.torrentsmd.com.php
 DOMAIN-SUFFIX,anthelion.me
 DOMAIN-SUFFIX,api.bitumconference.ru
-DOMAIN-SUFFIX,archive.torrentonline.cc
 DOMAIN-SUFFIX,aruacfilmes.com.br
 DOMAIN-SUFFIX,asiancinema.me
 DOMAIN-SUFFIX,asnet.pw
@@ -296,7 +296,6 @@ DOMAIN-SUFFIX,bms-hosxp.com
 DOMAIN-SUFFIX,bobbialbano.com
 DOMAIN-SUFFIX,breakbttext.xyz
 DOMAIN-SUFFIX,broadcasthe.net
-DOMAIN-SUFFIX,bt-tracker.de
 DOMAIN-SUFFIX,bt-tracker.gamexp.ru
 DOMAIN-SUFFIX,bt.3dmgame.com
 DOMAIN-SUFFIX,bt.ali213.net
@@ -800,7 +799,6 @@ DOMAIN-SUFFIX,torrenttracker.nwc.acsalaska.net
 DOMAIN-SUFFIX,totheglory.im
 DOMAIN-SUFFIX,tp.m-team.cc.php
 DOMAIN-SUFFIX,tr.abiir.top
-DOMAIN-SUFFIX,tr.abir.ga
 DOMAIN-SUFFIX,tr.back.re
 DOMAIN-SUFFIX,tr.bangumi.moe
 DOMAIN-SUFFIX,tr.burnabyhighstar.com
@@ -815,6 +813,7 @@ DOMAIN-SUFFIX,tr.steins-gate.moe
 DOMAIN-SUFFIX,tr.torland.ga
 DOMAIN-SUFFIX,tr.zhina.org
 DOMAIN-SUFFIX,tr2.ysagin.top
+DOMAIN-SUFFIX,tr3.ysagin.top
 DOMAIN-SUFFIX,tr4ck3r.duckdns.org
 DOMAIN-SUFFIX,tracker-2.msm8916.com
 DOMAIN-SUFFIX,tracker-de.ololosh.space
@@ -993,7 +992,6 @@ DOMAIN-SUFFIX,tracker.qingwapt.org
 DOMAIN-SUFFIX,tracker.qt.is
 DOMAIN-SUFFIX,tracker.qu.ax
 DOMAIN-SUFFIX,tracker.renfei.net
-DOMAIN-SUFFIX,tracker.run.place
 DOMAIN-SUFFIX,tracker.safe.moe
 DOMAIN-SUFFIX,tracker.sbsub.com
 DOMAIN-SUFFIX,tracker.seedboxing.tk
