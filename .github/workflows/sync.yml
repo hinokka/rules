@@ -130,7 +130,7 @@ jobs:
                       value = m.group(1)
               sets.setdefault(key, set()).add(value)
 
-          def convert_list_to_egern_yaml(text):
+          def convert_list_to_egern_yaml(text, add_no_resolve=True):
               sets = {}
               dropped = []
               skipped = []
@@ -159,7 +159,7 @@ jobs:
                       continue
                   _egern_convert_one(sets, dropped, skipped, rtype, value)
               out = []
-              if any(k in sets for k in _EGERN_IP_KEYS):
+              if add_no_resolve and any(k in sets for k in _EGERN_IP_KEYS):
                   out.append("no_resolve: true")
               for key in _EGERN_KEY_ORDER:
                   vals = sets.get(key)
@@ -473,8 +473,6 @@ jobs:
                               continue
                           if " //" in _s:
                               _s = _s.split(" //", 1)[0].rstrip()
-                          if _s.startswith("IP-ASN,") and client != "QuantumultX" and ",no-resolve" not in _s:
-                              _s = _s + ",no-resolve"
                           _out_lines.append(_s)
                       _asn_data = ("\n".join(_out_lines) + "\n").encode("utf-8")
                       with open(os.path.join(dest, "ChinaASN.list"), "wb") as _f:
@@ -510,7 +508,7 @@ jobs:
                           continue
                       with open(_lp, encoding="utf-8", errors="ignore") as _f:
                           _text = _f.read()
-                      _yaml_text, _stats = convert_list_to_egern_yaml(_text)
+                      _yaml_text, _stats = convert_list_to_egern_yaml(_text, add_no_resolve=(_name != "ChinaASN"))
                       with open(os.path.join(dest, "%s.yaml" % _name), "w", encoding="utf-8") as _f:
                           _f.write(_yaml_text)
                       os.remove(_lp)
