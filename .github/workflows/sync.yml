@@ -241,7 +241,7 @@ jobs:
               "apple-cn": "Apple-CN", "apple-proxy": "Apple-Proxy", "apple-tv": "AppleTV",
               "apple": "Apple", "bilibili": "BiliBili",
               "cdn": "CDN", "cn": "CN",
-              "cncidr": "CNCIDR", "cncidr-resolve": "CNCIDR-Resolve", "crypto": "Crypto",
+              "cncidr": "CNCIDR", "cncidr-resolve": "CNCIDR", "crypto": "Crypto",
               "disney": "Disney", "dmca": "DMCA", "douyin": "DouYin",
               "games-cn": "Games-CN",
               "games": "Games", "gfw": "GFW", "google": "Google",
@@ -302,6 +302,8 @@ jobs:
                   if stem.lower() == "google":
                       continue                                       
                   if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules", "tld-proxy"):
+                      continue
+                  if client in ("Surge", "Loon", "Egern") and stem.lower() == "cncidr":
                       continue                                                                                                                                           
                   _norm = RENAME.get(stem.lower(), stem)
                   if _norm not in _repo_stems:
