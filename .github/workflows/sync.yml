@@ -301,7 +301,7 @@ jobs:
                   stem = fn[:-len(cfg["ext"])]
                   if stem.lower() == "google":
                       continue                                       
-                  if client == "Clash" and stem.lower() in ("cn", "cncidr", "proxy", "adrules", "tld-proxy"):
+                  if client == "Clash" and stem.lower() in ("cn", "cncidr", "cncidr-resolve", "proxy", "adrules", "tld-proxy"):
                       continue
                   if client in ("Surge", "Loon", "Egern") and stem.lower() == "cncidr":
                       continue                                                                                                                                           
