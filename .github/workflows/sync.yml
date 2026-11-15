@@ -342,6 +342,7 @@ jobs:
                               _aw_lines.append(_s)
                           with open(os.path.join(dest, "AdRules.list"), "w", encoding="utf-8") as _f:
                               _f.write("\n".join(_aw_lines) + "\n")
+                          sort_rule_file(os.path.join(dest, "AdRules.list"), {"DOMAIN": 0, "DOMAIN-SUFFIX": 1, "DOMAIN-KEYWORD": 2, "DOMAIN-WILDCARD": 3, "IP-CIDR": 4, "IP-CIDR6": 4})
                           ok += 1
                           print(f"  [AWAvenue] AdRules.list ok ({len(_aw_lines)} rules)")
                       else:
@@ -366,6 +367,7 @@ jobs:
                           if _aw_lines:
                               with open(os.path.join(dest, "AdRules.list"), "w", encoding="utf-8") as _f:
                                   _f.write("\n".join(_aw_lines) + "\n")
+                              sort_rule_file(os.path.join(dest, "AdRules.list"), {"DOMAIN": 0, "DOMAIN-SUFFIX": 1, "DOMAIN-KEYWORD": 2, "DOMAIN-WILDCARD": 3, "IP-CIDR": 4, "IP-CIDR6": 4})
                               ok += 1
                               print(f"  [AWAvenue] AdRules.list ok ({len(_aw_lines)} rules)")
                           else:
@@ -388,8 +390,23 @@ jobs:
                       _aw_url = f"{AWAvenue_RAW}/AWAvenue-Ads-Rule-QuantumultX.list"
                       _aw_data = fetch(_aw_url)
                       if _aw_data and valid_rule_content(_aw_data, ".list"):
-                          with open(os.path.join(dest, "AdRules.list"), "wb") as _f:
-                              _f.write(strip_leading_hash_comments(_aw_data))
+                          _aw_text = strip_leading_hash_comments(_aw_data).decode("utf-8", errors="ignore")
+                          _qx_map = {"DOMAIN": "HOST", "DOMAIN-SUFFIX": "HOST-SUFFIX",
+                                     "DOMAIN-KEYWORD": "HOST-KEYWORD", "DOMAIN-WILDCARD": "HOST-WILDCARD",
+                                     "IP-CIDR6": "IP6-CIDR"}
+                          _aw_lines = []
+                          for _ln in _aw_text.splitlines():
+                              _s = _ln.strip()
+                              if not _s:
+                                  continue
+                              _parts = _s.split(",", 1)
+                              _t = _parts[0].strip().upper()
+                              if _t in _qx_map:
+                                  _s = _qx_map[_t] + "," + _parts[1] if len(_parts) > 1 else _s
+                              _aw_lines.append(_s)
+                          with open(os.path.join(dest, "AdRules.list"), "w", encoding="utf-8") as _f:
+                              _f.write("\n".join(_aw_lines) + "\n")
+                          sort_rule_file(os.path.join(dest, "AdRules.list"), {"HOST": 0, "HOST-SUFFIX": 1, "HOST-KEYWORD": 2, "HOST-WILDCARD": 3, "IP-CIDR": 4, "IP6-CIDR": 4})
                           ok += 1
                           print("  [AWAvenue] AdRules.list ok")
                       else:
