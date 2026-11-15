@@ -15,7 +15,6 @@ domain_set:
 - alltorrents.net
 - anime-tracker.aruku.kro.kr
 - announce.partis.si
-- archive.torrentonline.cc
 - banananetwork.qzz.io
 - bandito.byterunner.io
 - big-boss-tracker.net
@@ -124,8 +123,9 @@ domain_set:
 - tracker.enitin.xyz
 - tracker.expli.top
 - tracker.fansub.id
+- tracker.farted.net
 - tracker.fatkhoala.org
-- tracker.fnix.net
+- tracker.flatuslifir.is
 - tracker.frozen-layer.com
 - tracker.gcrenwp.top
 - tracker.gcrreen.xyz
@@ -173,6 +173,7 @@ domain_set:
 - tracker.torrust-demo.com
 - tracker.trancetraffic.com
 - tracker.tritan.gg
+- tracker.tryhackx.org
 - tracker.uraniumhexafluori.de
 - tracker.vraphim.com
 - tracker.xfapi.top
@@ -261,6 +262,7 @@ domain_suffix_set:
 - announce.torrentsmd.com.php
 - anthelion.me
 - api.bitumconference.ru
+- archive.torrentonline.cc
 - aruacfilmes.com.br
 - asiancinema.me
 - asnet.pw
@@ -501,7 +503,6 @@ domain_suffix_set:
 - ipv4announce.sktorrent.eu
 - ipv6-publictracker.zooki.xyz
 - ipv6.54new.com
-- ipv6.govt.hu
 - ipv6.open-internet.nl
 - ipv6.tracker.harry.lu
 - irrenhaus.dyndns.dk.php
@@ -741,6 +742,7 @@ domain_suffix_set:
 - soulvoice.club
 - sportscult.org
 - springsunday.net
+- stairs.lat
 - storage.groupees.com
 - sub4all.org
 - sugoi.pomf.se
@@ -895,7 +897,6 @@ domain_suffix_set:
 - tracker.etree.org
 - tracker.evergarden.uk
 - tracker.ex.ua
-- tracker.farted.net
 - tracker.fastcast.nz
 - tracker.fastdownload.xyz
 - tracker.fdn.fr
@@ -906,7 +907,7 @@ domain_suffix_set:
 - tracker.filetracker.pl
 - tracker.fixr.pro
 - tracker.flashtorrents.org
-- tracker.flatuslifir.is
+- tracker.fnix.net
 - tracker.foreverpirates.co
 - tracker.fortu.io
 - tracker.freddit.nl
@@ -934,7 +935,6 @@ domain_suffix_set:
 - tracker.istole.it
 - tracker.jordan.im
 - tracker.justseed.it
-- tracker.k.vu
 - tracker.kali.org
 - tracker.kamigami.org
 - tracker.kicks-ass.net
@@ -1039,7 +1039,6 @@ domain_suffix_set:
 - tracker.trackton.ga
 - tracker.transfur.org
 - tracker.tricitytorrents.com
-- tracker.tryhackx.org
 - tracker.tvunderground.org.ru
 - tracker.uw0.xyz
 - tracker.v6speed.org

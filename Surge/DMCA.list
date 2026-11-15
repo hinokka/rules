@@ -13,7 +13,6 @@ DOMAIN,aegir.sexy
 DOMAIN,alltorrents.net
 DOMAIN,anime-tracker.aruku.kro.kr
 DOMAIN,announce.partis.si
-DOMAIN,archive.torrentonline.cc
 DOMAIN,banananetwork.qzz.io
 DOMAIN,bandito.byterunner.io
 DOMAIN,big-boss-tracker.net
@@ -122,8 +121,9 @@ DOMAIN,tracker.edkj.club
 DOMAIN,tracker.enitin.xyz
 DOMAIN,tracker.expli.top
 DOMAIN,tracker.fansub.id
+DOMAIN,tracker.farted.net
 DOMAIN,tracker.fatkhoala.org
-DOMAIN,tracker.fnix.net
+DOMAIN,tracker.flatuslifir.is
 DOMAIN,tracker.frozen-layer.com
 DOMAIN,tracker.gcrenwp.top
 DOMAIN,tracker.gcrreen.xyz
@@ -171,6 +171,7 @@ DOMAIN,tracker.torrentbytes.net
 DOMAIN,tracker.torrust-demo.com
 DOMAIN,tracker.trancetraffic.com
 DOMAIN,tracker.tritan.gg
+DOMAIN,tracker.tryhackx.org
 DOMAIN,tracker.uraniumhexafluori.de
 DOMAIN,tracker.vraphim.com
 DOMAIN,tracker.xfapi.top
@@ -258,6 +259,7 @@ DOMAIN-SUFFIX,announce.augrains.com
 DOMAIN-SUFFIX,announce.torrentsmd.com.php
 DOMAIN-SUFFIX,anthelion.me
 DOMAIN-SUFFIX,api.bitumconference.ru
+DOMAIN-SUFFIX,archive.torrentonline.cc
 DOMAIN-SUFFIX,aruacfilmes.com.br
 DOMAIN-SUFFIX,asiancinema.me
 DOMAIN-SUFFIX,asnet.pw
@@ -498,7 +500,6 @@ DOMAIN-SUFFIX,ipv4.tracker.harry.lu
 DOMAIN-SUFFIX,ipv4announce.sktorrent.eu
 DOMAIN-SUFFIX,ipv6-publictracker.zooki.xyz
 DOMAIN-SUFFIX,ipv6.54new.com
-DOMAIN-SUFFIX,ipv6.govt.hu
 DOMAIN-SUFFIX,ipv6.open-internet.nl
 DOMAIN-SUFFIX,ipv6.tracker.harry.lu
 DOMAIN-SUFFIX,irrenhaus.dyndns.dk.php
@@ -738,6 +739,7 @@ DOMAIN-SUFFIX,sjzhushou.com
 DOMAIN-SUFFIX,soulvoice.club
 DOMAIN-SUFFIX,sportscult.org
 DOMAIN-SUFFIX,springsunday.net
+DOMAIN-SUFFIX,stairs.lat
 DOMAIN-SUFFIX,storage.groupees.com
 DOMAIN-SUFFIX,sub4all.org
 DOMAIN-SUFFIX,sugoi.pomf.se
@@ -892,7 +894,6 @@ DOMAIN-SUFFIX,tracker.electro-torrent.pl
 DOMAIN-SUFFIX,tracker.etree.org
 DOMAIN-SUFFIX,tracker.evergarden.uk
 DOMAIN-SUFFIX,tracker.ex.ua
-DOMAIN-SUFFIX,tracker.farted.net
 DOMAIN-SUFFIX,tracker.fastcast.nz
 DOMAIN-SUFFIX,tracker.fastdownload.xyz
 DOMAIN-SUFFIX,tracker.fdn.fr
@@ -903,7 +904,7 @@ DOMAIN-SUFFIX,tracker.files.fm
 DOMAIN-SUFFIX,tracker.filetracker.pl
 DOMAIN-SUFFIX,tracker.fixr.pro
 DOMAIN-SUFFIX,tracker.flashtorrents.org
-DOMAIN-SUFFIX,tracker.flatuslifir.is
+DOMAIN-SUFFIX,tracker.fnix.net
 DOMAIN-SUFFIX,tracker.foreverpirates.co
 DOMAIN-SUFFIX,tracker.fortu.io
 DOMAIN-SUFFIX,tracker.freddit.nl
@@ -931,7 +932,6 @@ DOMAIN-SUFFIX,tracker.iriseden.fr
 DOMAIN-SUFFIX,tracker.istole.it
 DOMAIN-SUFFIX,tracker.jordan.im
 DOMAIN-SUFFIX,tracker.justseed.it
-DOMAIN-SUFFIX,tracker.k.vu
 DOMAIN-SUFFIX,tracker.kali.org
 DOMAIN-SUFFIX,tracker.kamigami.org
 DOMAIN-SUFFIX,tracker.kicks-ass.net
@@ -1036,7 +1036,6 @@ DOMAIN-SUFFIX,tracker.trackerlist.org
 DOMAIN-SUFFIX,tracker.trackton.ga
 DOMAIN-SUFFIX,tracker.transfur.org
 DOMAIN-SUFFIX,tracker.tricitytorrents.com
-DOMAIN-SUFFIX,tracker.tryhackx.org
 DOMAIN-SUFFIX,tracker.tvunderground.org.ru
 DOMAIN-SUFFIX,tracker.uw0.xyz
 DOMAIN-SUFFIX,tracker.v6speed.org
