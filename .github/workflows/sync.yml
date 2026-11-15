@@ -27,6 +27,7 @@ jobs:
 
 
           QHEART_RAW = "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset"
+          AWAvenue_RAW = "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters"
           BM7_RAW = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master"
           MISSUO_ASN_URL = "https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list"
 
@@ -300,7 +301,9 @@ jobs:
                   fn = os.path.basename(url)
                   stem = fn[:-len(cfg["ext"])]
                   if stem.lower() == "google":
-                      continue                                       
+                      continue
+                  if stem.lower() == "adrules":
+                      continue
                   if client == "Clash" and stem.lower() in ("cn", "cncidr", "cncidr-resolve", "proxy", "adrules", "tld-proxy"):
                       continue
                   if client in ("Surge", "Loon", "Egern") and stem.lower() == "cncidr":
@@ -321,6 +324,76 @@ jobs:
                   with open(os.path.join(dest, _fn), "wb") as f:
                       f.write(strip_leading_hash_comments(_data))
                   ok += 1
+
+              # AWAvenue AdRules (replaces QuixoticHeart adrules)
+              if "AdRules" in _repo_stems:
+                  if client == "Surge":
+                      _aw_url = f"{AWAvenue_RAW}/AWAvenue-Ads-Rule-Surge-RULE-SET.list"
+                      _aw_data = fetch(_aw_url)
+                      if _aw_data and valid_rule_content(_aw_data, ".list"):
+                          _aw_text = strip_leading_hash_comments(_aw_data).decode("utf-8", errors="ignore")
+                          _aw_lines = []
+                          for _ln in _aw_text.splitlines():
+                              _s = _ln.strip()
+                              if not _s:
+                                  continue
+                              if _s.upper().startswith("IP-CIDR,") and ",no-resolve" not in _s.lower():
+                                  _s = _s + ",no-resolve"
+                              _aw_lines.append(_s)
+                          with open(os.path.join(dest, "AdRules.list"), "w", encoding="utf-8") as _f:
+                              _f.write("\n".join(_aw_lines) + "\n")
+                          ok += 1
+                          print(f"  [AWAvenue] AdRules.list ok ({len(_aw_lines)} rules)")
+                      else:
+                          print(f"  [AWAvenue] FAIL {_aw_url}")
+                  elif client == "Loon":
+                      _aw_url = f"{AWAvenue_RAW}/AWAvenue-Ads-Rule-Loon.module"
+                      _aw_data = fetch(_aw_url)
+                      if _aw_data:
+                          _aw_text = _aw_data.decode("utf-8", errors="ignore")
+                          _aw_lines = []
+                          for _ln in _aw_text.splitlines():
+                              _s = _ln.strip()
+                              if not _s or _s.startswith("#") or _s.startswith("["):
+                                  continue
+                              _parts = [p.strip() for p in _s.split(",")]
+                              if len(_parts) < 2:
+                                  continue
+                              _rule = f"{_parts[0]},{_parts[1]}"
+                              if _parts[0].upper().startswith("IP-CIDR"):
+                                  _rule += ",no-resolve"
+                              _aw_lines.append(_rule)
+                          if _aw_lines:
+                              with open(os.path.join(dest, "AdRules.list"), "w", encoding="utf-8") as _f:
+                                  _f.write("\n".join(_aw_lines) + "\n")
+                              ok += 1
+                              print(f"  [AWAvenue] AdRules.list ok ({len(_aw_lines)} rules)")
+                          else:
+                              print("  [AWAvenue] empty after convert")
+                      else:
+                          print(f"  [AWAvenue] FAIL {_aw_url}")
+                  elif client == "Egern":
+                      _aw_url = f"{AWAvenue_RAW}/AWAvenue-Ads-Rule-Surge-RULE-SET.list"
+                      _aw_data = fetch(_aw_url)
+                      if _aw_data:
+                          _aw_text = strip_leading_hash_comments(_aw_data).decode("utf-8", errors="ignore")
+                          _yaml_text, _stats = convert_list_to_egern_yaml(_aw_text)
+                          with open(os.path.join(dest, "AdRules.yaml"), "w", encoding="utf-8") as _f:
+                              _f.write(_yaml_text)
+                          ok += 1
+                          print(f"  [AWAvenue] AdRules.yaml: {_stats['counts']}")
+                      else:
+                          print(f"  [AWAvenue] FAIL {_aw_url}")
+                  elif client == "QuantumultX":
+                      _aw_url = f"{AWAvenue_RAW}/AWAvenue-Ads-Rule-QuantumultX.list"
+                      _aw_data = fetch(_aw_url)
+                      if _aw_data and valid_rule_content(_aw_data, ".list"):
+                          with open(os.path.join(dest, "AdRules.list"), "wb") as _f:
+                              _f.write(strip_leading_hash_comments(_aw_data))
+                          ok += 1
+                          print("  [AWAvenue] AdRules.list ok")
+                      else:
+                          print(f"  [AWAvenue] FAIL {_aw_url}")
 
 
               _extra_tasks = []
@@ -534,8 +607,7 @@ jobs:
 
 
 
-                      "AdRules.mrs": f"{QHEART_RAW}/meta/domain/adrules.mrs",
-                      "AdRules-IP.mrs": f"{QHEART_RAW}/meta/ipcidr/adrules.mrs",
+                      "AdRules.mrs": f"{AWAvenue_RAW}/AWAvenue-Ads-Rule-Clash.mrs",
 
                       "TLD-Proxy.mrs": f"{QHEART_RAW}/meta/domain/tld-proxy.mrs",
                   }
