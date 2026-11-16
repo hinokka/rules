@@ -7084,6 +7084,7 @@ HOST-SUFFIX,dealtree.org,proxy
 HOST-SUFFIX,deasians.com,proxy
 HOST-SUFFIX,debank.com,proxy
 HOST-SUFFIX,debian.org,proxy
+HOST-SUFFIX,debot.ai,proxy
 HOST-SUFFIX,debug.com,proxy
 HOST-SUFFIX,debuggex.com,proxy
 HOST-SUFFIX,debugproject.com,proxy
@@ -21974,6 +21975,7 @@ HOST-SUFFIX,releaseinternational.org,proxy
 HOST-SUFFIX,religionnews.com,proxy
 HOST-SUFFIX,religioustolerance.org,proxy
 HOST-SUFFIX,remirepo.net,proxy
+HOST-SUFFIX,remna.dev,proxy
 HOST-SUFFIX,remna.st,proxy
 HOST-SUFFIX,rencapbank.ru,proxy
 HOST-SUFFIX,renchead.com,proxy

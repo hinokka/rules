@@ -11,7 +11,6 @@ HOST,aboutbeautifulgallopinghorsesinthegreenpasture.online,dmca
 HOST,academic-p2p.appspot.com,dmca
 HOST,aegir.sexy,dmca
 HOST,alltorrents.net,dmca
-HOST,anime-tracker.aruku.kro.kr,dmca
 HOST,announce.partis.si,dmca
 HOST,banananetwork.qzz.io,dmca
 HOST,bandito.byterunner.io,dmca
@@ -123,7 +122,7 @@ HOST,tracker.expli.top,dmca
 HOST,tracker.fansub.id,dmca
 HOST,tracker.farted.net,dmca
 HOST,tracker.fatkhoala.org,dmca
-HOST,tracker.flatuslifir.is,dmca
+HOST,tracker.fnix.net,dmca
 HOST,tracker.frozen-layer.com,dmca
 HOST,tracker.gcrenwp.top,dmca
 HOST,tracker.gcrreen.xyz,dmca
@@ -171,7 +170,6 @@ HOST,tracker.torrentbytes.net,dmca
 HOST,tracker.torrust-demo.com,dmca
 HOST,tracker.trancetraffic.com,dmca
 HOST,tracker.tritan.gg,dmca
-HOST,tracker.tryhackx.org,dmca
 HOST,tracker.uraniumhexafluori.de,dmca
 HOST,tracker.vraphim.com,dmca
 HOST,tracker.xfapi.top,dmca
@@ -250,6 +248,7 @@ HOST-SUFFIX,alpha.torrenttracker.nl,dmca
 HOST-SUFFIX,alpharatio.cc,dmca
 HOST-SUFFIX,amigacity.xyz,dmca
 HOST-SUFFIX,anidex.moe,dmca
+HOST-SUFFIX,anime-tracker.aruku.kro.kr,dmca
 HOST-SUFFIX,animebytes.tv,dmca
 HOST-SUFFIX,animetorrents.me,dmca
 HOST-SUFFIX,anisaishuu.de,dmca
@@ -801,6 +800,7 @@ HOST-SUFFIX,torrenttracker.nwc.acsalaska.net,dmca
 HOST-SUFFIX,totheglory.im,dmca
 HOST-SUFFIX,tp.m-team.cc.php,dmca
 HOST-SUFFIX,tr.abiir.top,dmca
+HOST-SUFFIX,tr.abir.ga,dmca
 HOST-SUFFIX,tr.back.re,dmca
 HOST-SUFFIX,tr.bangumi.moe,dmca
 HOST-SUFFIX,tr.burnabyhighstar.com,dmca
@@ -904,7 +904,7 @@ HOST-SUFFIX,tracker.files.fm,dmca
 HOST-SUFFIX,tracker.filetracker.pl,dmca
 HOST-SUFFIX,tracker.fixr.pro,dmca
 HOST-SUFFIX,tracker.flashtorrents.org,dmca
-HOST-SUFFIX,tracker.fnix.net,dmca
+HOST-SUFFIX,tracker.flatuslifir.is,dmca
 HOST-SUFFIX,tracker.foreverpirates.co,dmca
 HOST-SUFFIX,tracker.fortu.io,dmca
 HOST-SUFFIX,tracker.freddit.nl,dmca
@@ -1036,6 +1036,7 @@ HOST-SUFFIX,tracker.trackerlist.org,dmca
 HOST-SUFFIX,tracker.trackton.ga,dmca
 HOST-SUFFIX,tracker.transfur.org,dmca
 HOST-SUFFIX,tracker.tricitytorrents.com,dmca
+HOST-SUFFIX,tracker.tryhackx.org,dmca
 HOST-SUFFIX,tracker.tvunderground.org.ru,dmca
 HOST-SUFFIX,tracker.uw0.xyz,dmca
 HOST-SUFFIX,tracker.v6speed.org,dmca

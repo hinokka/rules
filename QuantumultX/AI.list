@@ -25,6 +25,7 @@ HOST,copilot-workspace.githubnext.com,ai
 HOST,copilotprodattachments.blob.core.windows.net,ai
 HOST,cp4.cloudflare.com,ai
 HOST,daily-cloudcode-pa.googleapis.com,ai
+HOST,daily-cloudcode-pa.sandbox.googleapis.com,ai
 HOST,geminiweb-pa.clients.google.com,ai
 HOST,geminiweb-pa.clients6.google.com,ai
 HOST,gspe1-ssl.ls.apple.com,ai

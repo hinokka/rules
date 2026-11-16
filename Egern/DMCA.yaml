@@ -13,7 +13,6 @@ domain_set:
 - academic-p2p.appspot.com
 - aegir.sexy
 - alltorrents.net
-- anime-tracker.aruku.kro.kr
 - announce.partis.si
 - banananetwork.qzz.io
 - bandito.byterunner.io
@@ -125,7 +124,7 @@ domain_set:
 - tracker.fansub.id
 - tracker.farted.net
 - tracker.fatkhoala.org
-- tracker.flatuslifir.is
+- tracker.fnix.net
 - tracker.frozen-layer.com
 - tracker.gcrenwp.top
 - tracker.gcrreen.xyz
@@ -173,7 +172,6 @@ domain_set:
 - tracker.torrust-demo.com
 - tracker.trancetraffic.com
 - tracker.tritan.gg
-- tracker.tryhackx.org
 - tracker.uraniumhexafluori.de
 - tracker.vraphim.com
 - tracker.xfapi.top
@@ -253,6 +251,7 @@ domain_suffix_set:
 - alpharatio.cc
 - amigacity.xyz
 - anidex.moe
+- anime-tracker.aruku.kro.kr
 - animebytes.tv
 - animetorrents.me
 - anisaishuu.de
@@ -804,6 +803,7 @@ domain_suffix_set:
 - totheglory.im
 - tp.m-team.cc.php
 - tr.abiir.top
+- tr.abir.ga
 - tr.back.re
 - tr.bangumi.moe
 - tr.burnabyhighstar.com
@@ -907,7 +907,7 @@ domain_suffix_set:
 - tracker.filetracker.pl
 - tracker.fixr.pro
 - tracker.flashtorrents.org
-- tracker.fnix.net
+- tracker.flatuslifir.is
 - tracker.foreverpirates.co
 - tracker.fortu.io
 - tracker.freddit.nl
@@ -1039,6 +1039,7 @@ domain_suffix_set:
 - tracker.trackton.ga
 - tracker.transfur.org
 - tracker.tricitytorrents.com
+- tracker.tryhackx.org
 - tracker.tvunderground.org.ru
 - tracker.uw0.xyz
 - tracker.v6speed.org

@@ -172,6 +172,7 @@ HOST,adx-saas.advlion.com,reject
 HOST,adx-strategy-api-cn.statisticslinks.com,reject
 HOST,adx.ads.heytapmobi.com,reject
 HOST,adx.ads.oppomobile.com,reject
+HOST,adx.anythinktech.com,reject
 HOST,adx.appsdk.com.cn,reject
 HOST,adx.sogaha.cn,reject
 HOST,adx.tuia.cn,reject
@@ -190,6 +191,7 @@ HOST,alicoccdncnc-xn.inter.71edge.com,reject
 HOST,alicoccdnct-xn.inter.71edge.com,reject
 HOST,alltbcsp2p.baidu.com,reject
 HOST,alog.umeng.com,reject
+HOST,alogsus.umeng.com,reject
 HOST,alogus.umeng.com,reject
 HOST,als.baidu.com,reject
 HOST,amdcopen.m.taobao.com,reject
@@ -208,6 +210,7 @@ HOST,analytics.tiktok.com,reject
 HOST,analytics.woozooo.com,reject
 HOST,analyticsengine.s3.amazonaws.com,reject
 HOST,analyze.lemurbrowser.com,reject
+HOST,android.bugly.qq.com,reject
 HOST,andrqd.play.aiseet.atianqi.com,reject
 HOST,ap.dongdianqiu.com,reject
 HOST,ap.dongqiudi.com,reject
@@ -274,6 +277,7 @@ HOST,beizi.biz,reject
 HOST,bes-mtj.baidu.com,reject
 HOST,bgg.baidu.com,reject
 HOST,bianxian.com,reject
+HOST,bid.shanghailingye.cn,reject
 HOST,biz.weibo.com,reject
 HOST,bj-td-menta-01-callback.advlion.com,reject
 HOST,bj.ad.track.66mobi.com,reject
@@ -320,7 +324,10 @@ HOST,click4.chinaliftoff.io,reject
 HOST,client-upload.cn-shanghai.log.aliyuncs.com,reject
 HOST,clog.miguvideo.com,reject
 HOST,cloooud.com,reject
+HOST,cn-api-sec.anythinktech.com,reject
 HOST,cn-api.anythinktech.com,reject
+HOST,cn-da.anythinktech.com,reject
+HOST,cn-tk.anythinktech.com,reject
 HOST,cnlogs.umeng.com,reject
 HOST,cnlogs.umengcloud.com,reject
 HOST,cnzz.com,reject
@@ -338,6 +345,7 @@ HOST,crashlyticsreports-pa.googleapis.com,reject
 HOST,d.applovin.com,reject
 HOST,d.applvn.com,reject
 HOST,da.anythinktech.com,reject
+HOST,da.statisticslinks.com,reject
 HOST,data-sdk-uuid-log.d.meituan.net,reject
 HOST,data.ads.oppomobile.com,reject
 HOST,data.chsmarttv.com,reject
@@ -369,7 +377,10 @@ HOST,edge.ads.twitch.tv,reject
 HOST,ef-dongfeng.tanx.com,reject
 HOST,engine.dcad01.com,reject
 HOST,entry.baidu.com,reject
+HOST,errlog.umeng.com,reject
+HOST,errlogos.umeng.com,reject
 HOST,errnewlog.umeng.com,reject
+HOST,errnewlogos.umeng.com,reject
 HOST,et-eus.w.inmobi.com,reject
 HOST,event.tradplusad.com,reject
 HOST,events-drcn.op.dbankcloud.cn,reject
@@ -769,6 +780,7 @@ HOST,smetrics.samsung.com,reject
 HOST,sms.ads.oppomobile.com,reject
 HOST,sngmta.qq.com,reject
 HOST,snowflake.qq.com,reject
+HOST,ssapi.anythinktech.com,reject
 HOST,ssp.cloooud.com,reject
 HOST,staging-notify.sec.miui.com,reject
 HOST,stat.dongqiudi.com,reject
@@ -814,6 +826,7 @@ HOST,test.e.ad.xiaomi.com,reject
 HOST,tj.b.qq.com,reject
 HOST,tj.video.qq.com,reject
 HOST,tk.anythinktech.com,reject
+HOST,tk.statisticslinks.com,reject
 HOST,tmead.y.qq.com,reject
 HOST,tmeadcomm.y.qq.com,reject
 HOST,tmfmazu-wangka.m.qq.com,reject
@@ -831,6 +844,7 @@ HOST,tnc3-alisc1.toutiaoapi.com,reject
 HOST,tnc3-bjlgy.bytedance.com,reject
 HOST,tnc3-bjlgy.snssdk.com,reject
 HOST,tnc3-bjlgy.toutiaoapi.com,reject
+HOST,tobapplog.ctobsnssdk.com,reject
 HOST,toblog.ctobsnssdk.com,reject
 HOST,tpa-hcdn.iqiyi.com,reject
 HOST,tpc.googlesyndication-cn.com,reject
