@@ -11,6 +11,7 @@ DOMAIN,aboutbeautifulgallopinghorsesinthegreenpasture.online
 DOMAIN,academic-p2p.appspot.com
 DOMAIN,aegir.sexy
 DOMAIN,alltorrents.net
+DOMAIN,anime-tracker.aruku.kro.kr
 DOMAIN,announce.partis.si
 DOMAIN,banananetwork.qzz.io
 DOMAIN,bandito.byterunner.io
@@ -170,6 +171,7 @@ DOMAIN,tracker.torrentbytes.net
 DOMAIN,tracker.torrust-demo.com
 DOMAIN,tracker.trancetraffic.com
 DOMAIN,tracker.tritan.gg
+DOMAIN,tracker.tryhackx.org
 DOMAIN,tracker.uraniumhexafluori.de
 DOMAIN,tracker.vraphim.com
 DOMAIN,tracker.xfapi.top
@@ -248,7 +250,6 @@ DOMAIN-SUFFIX,alpha.torrenttracker.nl
 DOMAIN-SUFFIX,alpharatio.cc
 DOMAIN-SUFFIX,amigacity.xyz
 DOMAIN-SUFFIX,anidex.moe
-DOMAIN-SUFFIX,anime-tracker.aruku.kro.kr
 DOMAIN-SUFFIX,animebytes.tv
 DOMAIN-SUFFIX,animetorrents.me
 DOMAIN-SUFFIX,anisaishuu.de
@@ -800,7 +801,6 @@ DOMAIN-SUFFIX,torrenttracker.nwc.acsalaska.net
 DOMAIN-SUFFIX,totheglory.im
 DOMAIN-SUFFIX,tp.m-team.cc.php
 DOMAIN-SUFFIX,tr.abiir.top
-DOMAIN-SUFFIX,tr.abir.ga
 DOMAIN-SUFFIX,tr.back.re
 DOMAIN-SUFFIX,tr.bangumi.moe
 DOMAIN-SUFFIX,tr.burnabyhighstar.com
@@ -815,7 +815,6 @@ DOMAIN-SUFFIX,tr.steins-gate.moe
 DOMAIN-SUFFIX,tr.torland.ga
 DOMAIN-SUFFIX,tr.zhina.org
 DOMAIN-SUFFIX,tr2.ysagin.top
-DOMAIN-SUFFIX,tr3.ysagin.top
 DOMAIN-SUFFIX,tr4ck3r.duckdns.org
 DOMAIN-SUFFIX,tracker-2.msm8916.com
 DOMAIN-SUFFIX,tracker-de.ololosh.space
@@ -1036,7 +1035,6 @@ DOMAIN-SUFFIX,tracker.trackerlist.org
 DOMAIN-SUFFIX,tracker.trackton.ga
 DOMAIN-SUFFIX,tracker.transfur.org
 DOMAIN-SUFFIX,tracker.tricitytorrents.com
-DOMAIN-SUFFIX,tracker.tryhackx.org
 DOMAIN-SUFFIX,tracker.tvunderground.org.ru
 DOMAIN-SUFFIX,tracker.uw0.xyz
 DOMAIN-SUFFIX,tracker.v6speed.org
@@ -1176,7 +1174,6 @@ IP-CIDR,104.28.1.30/32,no-resolve
 IP-CIDR,104.28.16.69/32,no-resolve
 IP-CIDR,104.28.17.69/32,no-resolve
 IP-CIDR,107.150.14.110/32,no-resolve
-IP-CIDR,107.189.2.131/32,no-resolve
 IP-CIDR,109.121.134.121/32,no-resolve
 IP-CIDR,109.236.91.32/32,no-resolve
 IP-CIDR,109.248.43.36/32,no-resolve

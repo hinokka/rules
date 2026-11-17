@@ -29,6 +29,7 @@ domain_set:
 - daily-cloudcode-pa.sandbox.googleapis.com
 - geminiweb-pa.clients.google.com
 - geminiweb-pa.clients6.google.com
+- graph.facebook.com
 - gspe1-ssl.ls.apple.com
 - guzzoni.apple.com
 - http-intake.logs.us5.datadoghq.com
@@ -256,5 +257,7 @@ domain_keyword_set:
 - openai
 - openaiapi
 - openaicom
+domain_wildcard_set:
+- scontent-*.xx.fbcdn.net
 domain_regex_set:
 - ^chatgpt-async-webps-prod-\S+-\d+\.webpubsub\.azure\.com$

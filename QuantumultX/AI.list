@@ -28,6 +28,7 @@ HOST,daily-cloudcode-pa.googleapis.com,ai
 HOST,daily-cloudcode-pa.sandbox.googleapis.com,ai
 HOST,geminiweb-pa.clients.google.com,ai
 HOST,geminiweb-pa.clients6.google.com,ai
+HOST,graph.facebook.com,ai
 HOST,gspe1-ssl.ls.apple.com,ai
 HOST,guzzoni.apple.com,ai
 HOST,http-intake.logs.us5.datadoghq.com,ai
@@ -253,3 +254,4 @@ HOST-KEYWORD,notebooklm.google,ai
 HOST-KEYWORD,openai,ai
 HOST-KEYWORD,openaiapi,ai
 HOST-KEYWORD,openaicom,ai
+HOST-WILDCARD,scontent-*.xx.fbcdn.net,ai

@@ -6854,6 +6854,7 @@ HOST-SUFFIX,cybertrust.co.jp,proxy
 HOST-SUFFIX,cybertrust.ne.jp,proxy
 HOST-SUFFIX,cyberx.com,proxy
 HOST-SUFFIX,cygames.co.jp,proxy
+HOST-SUFFIX,cygames.com,proxy
 HOST-SUFFIX,cygames.jp,proxy
 HOST-SUFFIX,cygwin.com,proxy
 HOST-SUFFIX,cylink.pro,proxy
@@ -29175,6 +29176,7 @@ HOST-SUFFIX,yaya.cyou,proxy
 HOST-SUFFIX,yayabay.com,proxy
 HOST-SUFFIX,yayadizhi.xyz,proxy
 HOST-SUFFIX,yazhouse8.com,proxy
+HOST-SUFFIX,yb-payment.ru,proxy
 HOST-SUFFIX,yccdn.ru,proxy
 HOST-SUFFIX,yclients.com,proxy
 HOST-SUFFIX,ycombinator.com,proxy

@@ -13,6 +13,7 @@ domain_set:
 - academic-p2p.appspot.com
 - aegir.sexy
 - alltorrents.net
+- anime-tracker.aruku.kro.kr
 - announce.partis.si
 - banananetwork.qzz.io
 - bandito.byterunner.io
@@ -172,6 +173,7 @@ domain_set:
 - tracker.torrust-demo.com
 - tracker.trancetraffic.com
 - tracker.tritan.gg
+- tracker.tryhackx.org
 - tracker.uraniumhexafluori.de
 - tracker.vraphim.com
 - tracker.xfapi.top
@@ -251,7 +253,6 @@ domain_suffix_set:
 - alpharatio.cc
 - amigacity.xyz
 - anidex.moe
-- anime-tracker.aruku.kro.kr
 - animebytes.tv
 - animetorrents.me
 - anisaishuu.de
@@ -803,7 +804,6 @@ domain_suffix_set:
 - totheglory.im
 - tp.m-team.cc.php
 - tr.abiir.top
-- tr.abir.ga
 - tr.back.re
 - tr.bangumi.moe
 - tr.burnabyhighstar.com
@@ -818,7 +818,6 @@ domain_suffix_set:
 - tr.torland.ga
 - tr.zhina.org
 - tr2.ysagin.top
-- tr3.ysagin.top
 - tr4ck3r.duckdns.org
 - tracker-2.msm8916.com
 - tracker-de.ololosh.space
@@ -1039,7 +1038,6 @@ domain_suffix_set:
 - tracker.trackton.ga
 - tracker.transfur.org
 - tracker.tricitytorrents.com
-- tracker.tryhackx.org
 - tracker.tvunderground.org.ru
 - tracker.uw0.xyz
 - tracker.v6speed.org
@@ -1181,7 +1179,6 @@ ip_cidr_set:
 - 104.28.16.69/32
 - 104.28.17.69/32
 - 107.150.14.110/32
-- 107.189.2.131/32
 - 109.121.134.121/32
 - 109.236.91.32/32
 - 109.248.43.36/32
