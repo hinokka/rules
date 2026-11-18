@@ -519,6 +519,7 @@ HOST,dacentec.layeredserver.com,speedtest
 HOST,dal-speedtest.net.sangoma.net,speedtest
 HOST,dal-speedtest.transtelco.net,speedtest
 HOST,dallas.massivenetworks.com,speedtest
+HOST,dallas.outboundrix.cloud,speedtest
 HOST,dallas1.cabospeed.com,speedtest
 HOST,dalspeedtest.rtatel.com,speedtest
 HOST,dam.myspeed.net.sa,speedtest
@@ -4924,6 +4925,7 @@ HOST,speedtest-bla.optusnet.com.au,speedtest
 HOST,speedtest-blacktown.optusnet.com.au,speedtest
 HOST,speedtest-bne-dn1.empower.net.au,speedtest
 HOST,speedtest-bne.vocus.net,speedtest
+HOST,speedtest-bne0.encoo.com.au,speedtest
 HOST,speedtest-bom.melbicom.net,speedtest
 HOST,speedtest-bos.dish-wireless.com,speedtest
 HOST,speedtest-brendola.wifiweb.it,speedtest
