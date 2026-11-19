@@ -2540,6 +2540,7 @@ domain_set:
 - secureservers.be
 - seednet-tc1.seed.net.tw
 - seednet-tn1.seed.net.tw
+- seednet-tp1.seed.net.tw
 - seednet-ty1.seed.net.tw
 - seedsptch1.seed.net.tw
 - seedspthc1.seed.net.tw
@@ -5941,6 +5942,7 @@ domain_set:
 - speedtest.ontarionet.net
 - speedtest.oopaya.com
 - speedtest.opennetfortaleza.com.br
+- speedtest.opiquad.it
 - speedtest.optic-communications.com
 - speedtest.optyxbroadband.com
 - speedtest.ord1.hivelocity.net

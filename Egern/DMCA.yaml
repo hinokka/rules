@@ -97,7 +97,6 @@ domain_set:
 - torrents.linuxmint.com
 - torrents.tmtime.dev
 - torrentzilla.org
-- tr.burnabyhighstar.com
 - tr.fuckbitcoin.xyz
 - tr.zukizuki.org
 - tracker-zhuqiy.dgj055.icu
@@ -125,10 +124,7 @@ domain_set:
 - tracker.enitin.xyz
 - tracker.expli.top
 - tracker.fansub.id
-- tracker.farted.net
 - tracker.fatkhoala.org
-- tracker.flatuslifir.is
-- tracker.fnix.net
 - tracker.frozen-layer.com
 - tracker.gcrenwp.top
 - tracker.gcrreen.xyz
@@ -505,6 +501,7 @@ domain_suffix_set:
 - ipv4announce.sktorrent.eu
 - ipv6-publictracker.zooki.xyz
 - ipv6.54new.com
+- ipv6.govt.hu
 - ipv6.open-internet.nl
 - ipv6.tracker.harry.lu
 - irrenhaus.dyndns.dk.php
@@ -758,7 +755,9 @@ domain_suffix_set:
 - t.nyaatracker.com
 - t.overflow.biz
 - t.quic.ws
+- t1.itrus.su
 - t1.leech.ie
+- t2.itrus.su
 - t2.leech.ie
 - t2.popgo.org
 - t3.leech.ie
@@ -808,6 +807,7 @@ domain_suffix_set:
 - tr.abiir.top
 - tr.back.re
 - tr.bangumi.moe
+- tr.burnabyhighstar.com
 - tr.cili001.com
 - tr.fuuko.net
 - tr.greenhat.be
@@ -819,7 +819,6 @@ domain_suffix_set:
 - tr.torland.ga
 - tr.zhina.org
 - tr2.ysagin.top
-- tr3.ysagin.top
 - tr4ck3r.duckdns.org
 - tracker-2.msm8916.com
 - tracker-de.ololosh.space
@@ -898,6 +897,7 @@ domain_suffix_set:
 - tracker.etree.org
 - tracker.evergarden.uk
 - tracker.ex.ua
+- tracker.farted.net
 - tracker.fastcast.nz
 - tracker.fastdownload.xyz
 - tracker.fdn.fr
@@ -908,6 +908,8 @@ domain_suffix_set:
 - tracker.filetracker.pl
 - tracker.fixr.pro
 - tracker.flashtorrents.org
+- tracker.flatuslifir.is
+- tracker.fnix.net
 - tracker.foreverpirates.co
 - tracker.fortu.io
 - tracker.freddit.nl
@@ -935,6 +937,7 @@ domain_suffix_set:
 - tracker.istole.it
 - tracker.jordan.im
 - tracker.justseed.it
+- tracker.k.vu
 - tracker.kali.org
 - tracker.kamigami.org
 - tracker.kicks-ass.net
