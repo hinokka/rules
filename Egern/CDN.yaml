@@ -207,6 +207,7 @@ domain_set:
 - assets.change.org
 - assets.chaos.social
 - assets.churnkey.co
+- assets.claudeusercontent.com
 - assets.clever-cloud.com
 - assets.clibo.tw
 - assets.clickfunnels.com
@@ -4067,6 +4068,7 @@ domain_set:
 - static.change.org
 - static.chessarena.com
 - static.chrome-stats.com
+- static.claudeusercontent.com
 - static.clips4sale.com
 - static.cloud.coveo.com
 - static.cloudcachetci.com
@@ -4615,6 +4617,7 @@ domain_set:
 - updates.signal.org
 - updates.vibeisland.app
 - updates2.signal.org
+- upload.claudeusercontent.com
 - upload.movim.eu
 - upload.teftera.com
 - upload.wikimedia.org
@@ -5131,7 +5134,6 @@ domain_suffix_set:
 - chesscomfiles.com
 - circle-artifacts.com
 - cktu01.sbs
-- claudeusercontent.com
 - cldup.com
 - clientmetrics-pa.googleapis.com
 - cloud-object-storage.appdomain.cloud
@@ -5422,6 +5424,7 @@ domain_suffix_set:
 - foundationdns.net
 - foundationdns.org
 - fourhoi.com
+- frame.claudeusercontent.com
 - framercdn.com
 - framerstatic.com
 - framerusercontent.com

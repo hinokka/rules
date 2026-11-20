@@ -206,6 +206,7 @@ HOST,assets.cgtrader.com,cdn
 HOST,assets.change.org,cdn
 HOST,assets.chaos.social,cdn
 HOST,assets.churnkey.co,cdn
+HOST,assets.claudeusercontent.com,cdn
 HOST,assets.clever-cloud.com,cdn
 HOST,assets.clibo.tw,cdn
 HOST,assets.clickfunnels.com,cdn
@@ -4066,6 +4067,7 @@ HOST,static.chaika.moe,cdn
 HOST,static.change.org,cdn
 HOST,static.chessarena.com,cdn
 HOST,static.chrome-stats.com,cdn
+HOST,static.claudeusercontent.com,cdn
 HOST,static.clips4sale.com,cdn
 HOST,static.cloud.coveo.com,cdn
 HOST,static.cloudcachetci.com,cdn
@@ -4614,6 +4616,7 @@ HOST,updates.openlogi.org,cdn
 HOST,updates.signal.org,cdn
 HOST,updates.vibeisland.app,cdn
 HOST,updates2.signal.org,cdn
+HOST,upload.claudeusercontent.com,cdn
 HOST,upload.movim.eu,cdn
 HOST,upload.teftera.com,cdn
 HOST,upload.wikimedia.org,cdn
@@ -5129,7 +5132,6 @@ HOST-SUFFIX,chcdn.xyz,cdn
 HOST-SUFFIX,chesscomfiles.com,cdn
 HOST-SUFFIX,circle-artifacts.com,cdn
 HOST-SUFFIX,cktu01.sbs,cdn
-HOST-SUFFIX,claudeusercontent.com,cdn
 HOST-SUFFIX,cldup.com,cdn
 HOST-SUFFIX,clientmetrics-pa.googleapis.com,cdn
 HOST-SUFFIX,cloud-object-storage.appdomain.cloud,cdn
@@ -5420,6 +5422,7 @@ HOST-SUFFIX,foundationdns.com,cdn
 HOST-SUFFIX,foundationdns.net,cdn
 HOST-SUFFIX,foundationdns.org,cdn
 HOST-SUFFIX,fourhoi.com,cdn
+HOST-SUFFIX,frame.claudeusercontent.com,cdn
 HOST-SUFFIX,framercdn.com,cdn
 HOST-SUFFIX,framerstatic.com,cdn
 HOST-SUFFIX,framerusercontent.com,cdn

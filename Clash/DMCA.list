@@ -123,6 +123,7 @@ DOMAIN,tracker.enitin.xyz
 DOMAIN,tracker.expli.top
 DOMAIN,tracker.fansub.id
 DOMAIN,tracker.fatkhoala.org
+DOMAIN,tracker.fnix.net
 DOMAIN,tracker.frozen-layer.com
 DOMAIN,tracker.gcrenwp.top
 DOMAIN,tracker.gcrreen.xyz
@@ -619,10 +620,8 @@ DOMAIN-SUFFIX,opentracker.acgnx.se
 DOMAIN-SUFFIX,opentracker.arg.bz
 DOMAIN-SUFFIX,opentracker.co
 DOMAIN-SUFFIX,opentracker.i2p.rocks
-DOMAIN-SUFFIX,opentracker.lain.moscow
 DOMAIN-SUFFIX,opentracker.sktorrent.org
 DOMAIN-SUFFIX,opentracker.xyz
-DOMAIN-SUFFIX,opentracker2.lain.moscow
 DOMAIN-SUFFIX,opentrackr.org
 DOMAIN-SUFFIX,oppaiti.me
 DOMAIN-SUFFIX,orpheus.network
@@ -802,6 +801,7 @@ DOMAIN-SUFFIX,torrenttracker.nwc.acsalaska.net
 DOMAIN-SUFFIX,totheglory.im
 DOMAIN-SUFFIX,tp.m-team.cc.php
 DOMAIN-SUFFIX,tr.abiir.top
+DOMAIN-SUFFIX,tr.abir.ga
 DOMAIN-SUFFIX,tr.back.re
 DOMAIN-SUFFIX,tr.bangumi.moe
 DOMAIN-SUFFIX,tr.burnabyhighstar.com
@@ -816,6 +816,7 @@ DOMAIN-SUFFIX,tr.steins-gate.moe
 DOMAIN-SUFFIX,tr.torland.ga
 DOMAIN-SUFFIX,tr.zhina.org
 DOMAIN-SUFFIX,tr2.ysagin.top
+DOMAIN-SUFFIX,tr3.ysagin.top
 DOMAIN-SUFFIX,tr4ck3r.duckdns.org
 DOMAIN-SUFFIX,tracker-2.msm8916.com
 DOMAIN-SUFFIX,tracker-de.ololosh.space
@@ -865,7 +866,6 @@ DOMAIN-SUFFIX,tracker.btsync.tk
 DOMAIN-SUFFIX,tracker.btzoo.eu
 DOMAIN-SUFFIX,tracker.bz
 DOMAIN-SUFFIX,tracker.calculate.ru
-DOMAIN-SUFFIX,tracker.cangku.moe
 DOMAIN-SUFFIX,tracker.ccc.de
 DOMAIN-SUFFIX,tracker.christianbro.pw
 DOMAIN-SUFFIX,tracker.city9x.com
@@ -906,7 +906,6 @@ DOMAIN-SUFFIX,tracker.filetracker.pl
 DOMAIN-SUFFIX,tracker.fixr.pro
 DOMAIN-SUFFIX,tracker.flashtorrents.org
 DOMAIN-SUFFIX,tracker.flatuslifir.is
-DOMAIN-SUFFIX,tracker.fnix.net
 DOMAIN-SUFFIX,tracker.foreverpirates.co
 DOMAIN-SUFFIX,tracker.fortu.io
 DOMAIN-SUFFIX,tracker.freddit.nl

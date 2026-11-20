@@ -206,6 +206,7 @@ DOMAIN,assets.cgtrader.com
 DOMAIN,assets.change.org
 DOMAIN,assets.chaos.social
 DOMAIN,assets.churnkey.co
+DOMAIN,assets.claudeusercontent.com
 DOMAIN,assets.clever-cloud.com
 DOMAIN,assets.clibo.tw
 DOMAIN,assets.clickfunnels.com
@@ -4066,6 +4067,7 @@ DOMAIN,static.chaika.moe
 DOMAIN,static.change.org
 DOMAIN,static.chessarena.com
 DOMAIN,static.chrome-stats.com
+DOMAIN,static.claudeusercontent.com
 DOMAIN,static.clips4sale.com
 DOMAIN,static.cloud.coveo.com
 DOMAIN,static.cloudcachetci.com
@@ -4614,6 +4616,7 @@ DOMAIN,updates.openlogi.org
 DOMAIN,updates.signal.org
 DOMAIN,updates.vibeisland.app
 DOMAIN,updates2.signal.org
+DOMAIN,upload.claudeusercontent.com
 DOMAIN,upload.movim.eu
 DOMAIN,upload.teftera.com
 DOMAIN,upload.wikimedia.org
@@ -5129,7 +5132,6 @@ DOMAIN-SUFFIX,chcdn.xyz
 DOMAIN-SUFFIX,chesscomfiles.com
 DOMAIN-SUFFIX,circle-artifacts.com
 DOMAIN-SUFFIX,cktu01.sbs
-DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,cldup.com
 DOMAIN-SUFFIX,clientmetrics-pa.googleapis.com
 DOMAIN-SUFFIX,cloud-object-storage.appdomain.cloud
@@ -5420,6 +5422,7 @@ DOMAIN-SUFFIX,foundationdns.com
 DOMAIN-SUFFIX,foundationdns.net
 DOMAIN-SUFFIX,foundationdns.org
 DOMAIN-SUFFIX,fourhoi.com
+DOMAIN-SUFFIX,frame.claudeusercontent.com
 DOMAIN-SUFFIX,framercdn.com
 DOMAIN-SUFFIX,framerstatic.com
 DOMAIN-SUFFIX,framerusercontent.com
