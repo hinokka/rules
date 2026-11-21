@@ -286,6 +286,7 @@ domain_set:
 - assets.mcp.corespeed.io
 - assets.media-platform.com
 - assets.monei.com
+- assets.monetizationos.com
 - assets.monica.im
 - assets.mozilla.social
 - assets.msn.com
@@ -5023,6 +5024,7 @@ domain_suffix_set:
 - bundle.thimatic-apps.com
 - bunny.net
 - bunnycdn.com
+- butterfly-effect-cdn.dev
 - bytebucket.org
 - bytedapm.com
 - c-dn.net

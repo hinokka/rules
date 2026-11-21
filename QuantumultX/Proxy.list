@@ -6303,6 +6303,7 @@ HOST-SUFFIX,cmhalq.com,proxy
 HOST-SUFFIX,cmi.org.tw,proxy
 HOST-SUFFIX,cmmedia.com.tw,proxy
 HOST-SUFFIX,cmoinc.org,proxy
+HOST-SUFFIX,cmoney.tw,proxy
 HOST-SUFFIX,cmpaas.com,proxy
 HOST-SUFFIX,cmrbank.ru,proxy
 HOST-SUFFIX,cms-twdigitalassets.com,proxy
@@ -6343,7 +6344,6 @@ HOST-SUFFIX,cnnpolitics.com,proxy
 HOST-SUFFIX,cnpmjs.org,proxy
 HOST-SUFFIX,cnpolitics.org,proxy
 HOST-SUFFIX,cnproxy.com,proxy
-HOST-SUFFIX,cnshopin.com,proxy
 HOST-SUFFIX,cnyes.com,proxy
 HOST-SUFFIX,cnzjp.xyz,proxy
 HOST-SUFFIX,co.tv,proxy
@@ -10808,6 +10808,7 @@ HOST-SUFFIX,gameuxmasterguide.com,proxy
 HOST-SUFFIX,gamewtb.com,proxy
 HOST-SUFFIX,gamez.com.tw,proxy
 HOST-SUFFIX,gaming-notebooks.com,proxy
+HOST-SUFFIX,gamma.app,proxy
 HOST-SUFFIX,gamme.com.tw,proxy
 HOST-SUFFIX,gamousa.com,proxy
 HOST-SUFFIX,gandhara.ru,proxy
@@ -11848,6 +11849,7 @@ HOST-SUFFIX,greatroc.org,proxy
 HOST-SUFFIX,greatroc.tw,proxy
 HOST-SUFFIX,greatzhonghua.org,proxy
 HOST-SUFFIX,green-box-tv.com,proxy
+HOST-SUFFIX,greenbean.media,proxy
 HOST-SUFFIX,greenbuildingstudio.com,proxy
 HOST-SUFFIX,greenend.org.uk,proxy
 HOST-SUFFIX,greenhouse.io,proxy
@@ -12580,9 +12582,11 @@ HOST-SUFFIX,hkchronicles.com,proxy
 HOST-SUFFIX,hkchurch.org,proxy
 HOST-SUFFIX,hkcircleapp.com,proxy
 HOST-SUFFIX,hkcitizenmedia.com,proxy
+HOST-SUFFIX,hkcitycreation.com,proxy
 HOST-SUFFIX,hkcmi.edu,proxy
 HOST-SUFFIX,hkcnews.com,proxy
 HOST-SUFFIX,hkcoc.com,proxy
+HOST-SUFFIX,hkcourtnews.com,proxy
 HOST-SUFFIX,hkcsl.com,proxy
 HOST-SUFFIX,hkd.com,proxy
 HOST-SUFFIX,hkd.mobi,proxy
@@ -12598,6 +12602,7 @@ HOST-SUFFIX,hkf2023.lat,proxy
 HOST-SUFFIX,hkf202311.site,proxy
 HOST-SUFFIX,hkf202312.shop,proxy
 HOST-SUFFIX,hkfaa.com,proxy
+HOST-SUFFIX,hkfeature.com,proxy
 HOST-SUFFIX,hkfreezone.com,proxy
 HOST-SUFFIX,hkfront.org,proxy
 HOST-SUFFIX,hkgalden.com,proxy
@@ -15767,6 +15772,7 @@ HOST-SUFFIX,life-global.org,proxy
 HOST-SUFFIX,lifeatspotify.com,proxy
 HOST-SUFFIX,lifemiles.com,proxy
 HOST-SUFFIX,lifeselector.com,proxy
+HOST-SUFFIX,lifesitenews.com,proxy
 HOST-SUFFIX,lifestyle-tec.ru,proxy
 HOST-SUFFIX,lifewire.com,proxy
 HOST-SUFFIX,lightbridge.com,proxy
@@ -16454,6 +16460,7 @@ HOST-SUFFIX,massage-in-taipei.com,proxy
 HOST-SUFFIX,massagerepublic.com,proxy
 HOST-SUFFIX,masseffect.com,proxy
 HOST-SUFFIX,masseffectarchives.com,proxy
+HOST-SUFFIX,master-insight.com,proxy
 HOST-SUFFIX,mastercad.com,proxy
 HOST-SUFFIX,mastercard-email.com,proxy
 HOST-SUFFIX,mastercard.ae,proxy
@@ -17569,6 +17576,7 @@ HOST-SUFFIX,moneta.ru,proxy
 HOST-SUFFIX,money-link.com.tw,proxy
 HOST-SUFFIX,moneydj.com,proxy
 HOST-SUFFIX,moneyhome.biz,proxy
+HOST-SUFFIX,moneynet.com.tw,proxy
 HOST-SUFFIX,moneyswift.online,proxy
 HOST-SUFFIX,moneywithfacebook.com,proxy
 HOST-SUFFIX,mongodb.com,proxy
@@ -17961,6 +17969,7 @@ HOST-SUFFIX,mxrouting.net,proxy
 HOST-SUFFIX,mxshm.site,proxy
 HOST-SUFFIX,my-enema.com,proxy
 HOST-SUFFIX,my-formosa.com,proxy
+HOST-SUFFIX,my-formosa.com.tw,proxy
 HOST-SUFFIX,my-kualalumpur-1.myhuaweicloud.com,proxy
 HOST-SUFFIX,my-magazine.me,proxy
 HOST-SUFFIX,my-manager-account.com,proxy
@@ -21384,6 +21393,7 @@ HOST-SUFFIX,pullfolio.co,proxy
 HOST-SUFFIX,pullfolio.com,proxy
 HOST-SUFFIX,pullstring.net,proxy
 HOST-SUFFIX,pulsebrowser.app,proxy
+HOST-SUFFIX,pulsehknews.com,proxy
 HOST-SUFFIX,punishbang.com,proxy
 HOST-SUFFIX,punishworld.com,proxy
 HOST-SUFFIX,punyu.com,proxy
@@ -23063,6 +23073,7 @@ HOST-SUFFIX,shambalapost.com,proxy
 HOST-SUFFIX,shambhalasun.com,proxy
 HOST-SUFFIX,shameless.com,proxy
 HOST-SUFFIX,shangfang.org,proxy
+HOST-SUFFIX,shanghainationalparty.com,proxy
 HOST-SUFFIX,shaparak.ir,proxy
 HOST-SUFFIX,shapelcounset.xyz,proxy
 HOST-SUFFIX,shapeservices.com,proxy
@@ -23780,6 +23791,7 @@ HOST-SUFFIX,soubory.com,proxy
 HOST-SUFFIX,souka.xyz,proxy
 HOST-SUFFIX,soul-plus.net,proxy
 HOST-SUFFIX,soulcaliburhentai.net,proxy
+HOST-SUFFIX,soulogic.com,proxy
 HOST-SUFFIX,soumo.info,proxy
 HOST-SUFFIX,soundcloud.cloud,proxy
 HOST-SUFFIX,soundcloud.com,proxy
@@ -24612,6 +24624,7 @@ HOST-SUFFIX,taiwanncf.org.tw,proxy
 HOST-SUFFIX,taiwannews.com.tw,proxy
 HOST-SUFFIX,taiwanonline.cc,proxy
 HOST-SUFFIX,taiwansex.tw,proxy
+HOST-SUFFIX,taiwantoday.tw,proxy
 HOST-SUFFIX,taiwantp.net,proxy
 HOST-SUFFIX,taiwantt.org.tw,proxy
 HOST-SUFFIX,taiwanus.net,proxy
@@ -24975,6 +24988,7 @@ HOST-SUFFIX,theclasshroom.com,proxy
 HOST-SUFFIX,thecleversense.com,proxy
 HOST-SUFFIX,theclubprive.com,proxy
 HOST-SUFFIX,theclyster.com,proxy
+HOST-SUFFIX,thecollectivehk.com,proxy
 HOST-SUFFIX,thecompaqstore.com,proxy
 HOST-SUFFIX,theconversation.com,proxy
 HOST-SUFFIX,thecuckold.com,proxy
@@ -25044,6 +25058,7 @@ HOST-SUFFIX,thenewslens.com,proxy
 HOST-SUFFIX,thenewstack.io,proxy
 HOST-SUFFIX,thenextweb.com,proxy
 HOST-SUFFIX,thenipslip.com,proxy
+HOST-SUFFIX,theonlinecitizen.com,proxy
 HOST-SUFFIX,theopportunityproject.org,proxy
 HOST-SUFFIX,thepaypalshop.com,proxy
 HOST-SUFFIX,thepervs.com,proxy
@@ -25087,6 +25102,7 @@ HOST-SUFFIX,thesims4.com,proxy
 HOST-SUFFIX,thesimssocial.com,proxy
 HOST-SUFFIX,thespeeder.com,proxy
 HOST-SUFFIX,thestandnews.com,proxy
+HOST-SUFFIX,thestar.com,proxy
 HOST-SUFFIX,thestationbymaker.com,proxy
 HOST-SUFFIX,thesun.co.uk,proxy
 HOST-SUFFIX,thesun.ie,proxy
@@ -25118,6 +25134,7 @@ HOST-SUFFIX,theweek.in,proxy
 HOST-SUFFIX,thewgo.org,proxy
 HOST-SUFFIX,thewirechina.com,proxy
 HOST-SUFFIX,thewitcher.com,proxy
+HOST-SUFFIX,thewitnesshk.com,proxy
 HOST-SUFFIX,thewonderful101.com,proxy
 HOST-SUFFIX,theync.com,proxy
 HOST-SUFFIX,theyxxx.com,proxy
@@ -28104,6 +28121,7 @@ HOST-SUFFIX,wolfberries.ru,proxy
 HOST-SUFFIX,wolframalpha.com,proxy
 HOST-SUFFIX,wolfsex-me.sbs,proxy
 HOST-SUFFIX,wolterskluwer.com,proxy
+HOST-SUFFIX,womany.net,proxy
 HOST-SUFFIX,wombo.ai,proxy
 HOST-SUFFIX,womensnikeshox.com,proxy
 HOST-SUFFIX,womenwill.com,proxy

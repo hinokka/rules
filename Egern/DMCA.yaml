@@ -125,6 +125,7 @@ domain_set:
 - tracker.expli.top
 - tracker.fansub.id
 - tracker.fatkhoala.org
+- tracker.flatuslifir.is
 - tracker.fnix.net
 - tracker.frozen-layer.com
 - tracker.gcrenwp.top
@@ -155,6 +156,7 @@ domain_set:
 - tracker.opentorrent.top
 - tracker.picotorrent.one
 - tracker.plx.im
+- tracker.pmman.tech
 - tracker.privateseedbox.xyz
 - tracker.rescuecrew7.com
 - tracker.sharebro.in
@@ -173,6 +175,7 @@ domain_set:
 - tracker.torrust-demo.com
 - tracker.trancetraffic.com
 - tracker.tritan.gg
+- tracker.tryhackx.org
 - tracker.uraniumhexafluori.de
 - tracker.vraphim.com
 - tracker.xfapi.top
@@ -485,7 +488,6 @@ domain_suffix_set:
 - hitpt.org
 - hk1.opentracker.ga
 - home.penza.com.ru
-- ht.therarbg.to
 - hub.bugout.link
 - hudbt.hust.edu.cn
 - ianon.app
@@ -623,8 +625,10 @@ domain_suffix_set:
 - opentracker.arg.bz
 - opentracker.co
 - opentracker.i2p.rocks
+- opentracker.lain.moscow
 - opentracker.sktorrent.org
 - opentracker.xyz
+- opentracker2.lain.moscow
 - opentrackr.org
 - oppaiti.me
 - orpheus.network
@@ -804,7 +808,6 @@ domain_suffix_set:
 - totheglory.im
 - tp.m-team.cc.php
 - tr.abiir.top
-- tr.abir.ga
 - tr.back.re
 - tr.bangumi.moe
 - tr.burnabyhighstar.com
@@ -819,7 +822,6 @@ domain_suffix_set:
 - tr.torland.ga
 - tr.zhina.org
 - tr2.ysagin.top
-- tr3.ysagin.top
 - tr4ck3r.duckdns.org
 - tracker-2.msm8916.com
 - tracker-de.ololosh.space
@@ -908,7 +910,6 @@ domain_suffix_set:
 - tracker.filetracker.pl
 - tracker.fixr.pro
 - tracker.flashtorrents.org
-- tracker.flatuslifir.is
 - tracker.foreverpirates.co
 - tracker.fortu.io
 - tracker.freddit.nl
@@ -986,7 +987,6 @@ domain_suffix_set:
 - tracker.pirateparty.gr
 - tracker.piratepublic.com
 - tracker.playground.ru
-- tracker.pmman.tech
 - tracker.pomf.se
 - tracker.port443.xyz
 - tracker.prq.to
@@ -1040,7 +1040,6 @@ domain_suffix_set:
 - tracker.trackton.ga
 - tracker.transfur.org
 - tracker.tricitytorrents.com
-- tracker.tryhackx.org
 - tracker.tvunderground.org.ru
 - tracker.uw0.xyz
 - tracker.v6speed.org

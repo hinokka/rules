@@ -285,6 +285,7 @@ HOST,assets.mayoclinic.org,cdn
 HOST,assets.mcp.corespeed.io,cdn
 HOST,assets.media-platform.com,cdn
 HOST,assets.monei.com,cdn
+HOST,assets.monetizationos.com,cdn
 HOST,assets.monica.im,cdn
 HOST,assets.mozilla.social,cdn
 HOST,assets.msn.com,cdn
@@ -5021,6 +5022,7 @@ HOST-SUFFIX,bundle.run,cdn
 HOST-SUFFIX,bundle.thimatic-apps.com,cdn
 HOST-SUFFIX,bunny.net,cdn
 HOST-SUFFIX,bunnycdn.com,cdn
+HOST-SUFFIX,butterfly-effect-cdn.dev,cdn
 HOST-SUFFIX,bytebucket.org,cdn
 HOST-SUFFIX,bytedapm.com,cdn
 HOST-SUFFIX,c-dn.net,cdn
